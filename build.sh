@@ -1,4 +1,4 @@
-# cd ../
-# mkdir output
-# cp -R ./Frontend/* ./output
-# cp -R ./output ./Frontend/
+cd ../
+mkdir output
+cp -R ./Frontend/* ./output
+cp -R ./output ./Frontend/

@@ -1,8 +1,10 @@
+import TopNavBar from "../components/TopNavBar";
+
 function MainPage() {
   return (
     <>
-     <div className="w-[100%] h-[100vh] border solid text-[50px]">
-        
+     <div className="w-[100%] h-[100vh]">
+        <TopNavBar/>
      </div>
     </>
   );

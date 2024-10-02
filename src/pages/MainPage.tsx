@@ -1,9 +1,8 @@
-
-
 function MainPage() {
   return (
     <>
-     메인페이지
+     <div className="w-[100vw] h-[100vh]">
+     </div>
     </>
   );
 }

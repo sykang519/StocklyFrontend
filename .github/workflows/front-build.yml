@@ -28,6 +28,7 @@ jobs:
         run: sh ./build.sh
 
       - name: Pushes to another repository
+        if: github.ref == 'refs/heads/main'
         id: push_directiry
         uses: cpina/github-action-push-to-another-repository@main
         env: 
@@ -41,4 +42,5 @@ jobs:
           target-branch: main
 
       - name: Test get variable exported by push-to-another-repository
+        if: github.ref == 'refs/heads/main'
         run: echo $DESTINATION_CLONED_DIRECTORY 

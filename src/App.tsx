@@ -12,7 +12,7 @@ function App() {
         <BrowserRouter>
           <div className={`flex`}>
             <Routes>
-              <Route path="/login" element={<LoginPage />} />
+              <Route path="/" element={<LoginPage />} />
               <Route path="/main" element={<MainPage />} />
             </Routes>
             <MenuBar />

@@ -8,9 +8,11 @@ function MenuBar() {
   const {openDrawer, like, chart, handleDrawer} = useDrawerStore();
 
   return (
-    <div className="flex">
+    <div className="flex h-[100vh]">
       <div
-        className={`fixed top-0 h-full w-[300px] bg-Bg-gray transition-transform duration-300 z-100 ${openDrawer ? '-translate-x-full' : 'translate-x-0'}`}
+        className={`transition-all duration-300 bg-Bg-gray z-100 ${
+          openDrawer ? 'w-[300px]' : 'w-0'
+        }`}
       >
         {like ? <MenuBarLikeContent /> : <MenuBarChartContent />}
       </div>

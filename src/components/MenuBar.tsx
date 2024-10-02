@@ -1,43 +1,11 @@
 import { IoHeart } from 'react-icons/io5';
 import { FaRegClock } from 'react-icons/fa6';
-import { useState } from 'react';
 import MenuBarLikeContent from './MenuBarLikeContent';
 import MenuBarChartContent from './MenuBarChartContent';
+import useDrawerStore from '../zustand/MenuBarStore';
 
 function MenuBar() {
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const [like, setLike] = useState(false);
-  const [chart, setChart] = useState(false);
-
-  const handleDrawer = (button: string) => {
-    // drawer가 닫혀있다가 열리는 경우
-    if (!openDrawer) {
-      if (button === 'like') {
-        setOpenDrawer(true);
-        setLike(true);
-      } else if (button === 'chart') {
-        setOpenDrawer(true);
-        setChart(true);
-      }
-    } else if (openDrawer) {
-      // drawer가 열려있던 상태에서 한 번 더 눌러서 drawer를 닫을 경우
-      if (like && button === 'like') {
-        setOpenDrawer(false);
-        setLike(false);
-      } else if (chart && button === 'chart') {
-        setOpenDrawer(false);
-        setChart(false);
-      }
-      // drawer가 열려있던 상태에서 다른 버튼을 눌러서 content 변화시킬 경우
-      else if (like && button === 'chart') {
-        setLike(false);
-        setChart(true);
-      } else if (chart && button === 'like') {
-        setChart(false);
-        setLike(true);
-      }
-    }
-  };
+  const {openDrawer, like, chart, handleDrawer} = useDrawerStore();
 
   return (
     <div className="flex">

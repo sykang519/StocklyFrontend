@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import MenuBar from './components/MenuBar';
+import MyInvest from './pages/MyInvestPage';
+import StockDetailsPage from './pages/StockDetailsPage';
 
 function App() {
 
@@ -12,10 +14,12 @@ function App() {
         <BrowserRouter>
           <div className={`flex`}>
             <Routes>
-              <Route path="/login" element={<LoginPage />} />
+              <Route path="/" element={<LoginPage />} />
               <Route path="/main" element={<MainPage />} />
+              <Route path="/myinvest" element={<MyInvest />} />
+              <Route path="/details" element={<StockDetailsPage />} />
             </Routes>
-            <MenuBar />
+            <MenuBar/>
           </div>
         </BrowserRouter>
       }

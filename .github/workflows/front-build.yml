@@ -28,6 +28,7 @@ jobs:
         run: sh ./build.sh
 
       - name: Pushes to another repository
+        if: github.ref == 'refs/heads/main'
         id: push_directiry
         uses: cpina/github-action-push-to-another-repository@main
         env: 
@@ -37,8 +38,9 @@ jobs:
           destination-github-username: sykang519
           destination-repository-name: StocklyFrontend
           user-email: ${{ secrets.EMAIL }}
-          commit-message: ${{ github.event.commits[0].message }}
+          commit-message: ${{ steps.commit_messages.outputs.messages }}
           target-branch: main
 
       - name: Test get variable exported by push-to-another-repository
+        if: github.ref == 'refs/heads/main'
         run: echo $DESTINATION_CLONED_DIRECTORY 

@@ -6,10 +6,17 @@ module.exports = {
   theme: {
     extend: {},
     colors: {
+      'black' : '#000000',
+      'white' : '#ffffff',
       'MainBlue' : '#3182F6',
       'Bg-gray' : '#F6F7F9',
       'Icon-gray' : '#B4BDC6',
-      'Box-gray': '#EAECF0'
+      'Box-gray': '#EAECF0',
+      'font-gray' : '#B4BDC6',
+      'buy-red' : '#F25050',
+      'gray' : '#e4e4e4',
+      'reset-red' : '#CB3434',
+
     }
   },
   plugins: [],

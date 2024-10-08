@@ -38,7 +38,7 @@ jobs:
           destination-github-username: sykang519
           destination-repository-name: StocklyFrontend
           user-email: ${{ secrets.EMAIL }}
-          commit-message: ${{ steps.commit_messages.outputs.messages }}
+          commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
 
       - name: Test get variable exported by push-to-another-repository

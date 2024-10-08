@@ -13,7 +13,7 @@ function SignIn() {
           placeholder="비밀번호"
           required
         ></input>
-        <button className="w-[300px] h-[65px] mt-[100px] text-[28px] bg-MainBlue rounded-[7px]" type="submit">
+        <button className="w-[300px] h-[65px] mt-[100px] text-[28px] bg-MainBlue text-white rounded-[7px]" type="submit">
           로그인
         </button>
       </form>

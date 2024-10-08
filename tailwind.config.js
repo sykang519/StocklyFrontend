@@ -12,7 +12,10 @@ module.exports = {
       'Bg-gray' : '#F6F7F9',
       'Icon-gray' : '#B4BDC6',
       'Box-gray': '#EAECF0',
-      'font-gray' : '#B4BDC6'
+      'font-gray' : '#B4BDC6',
+      'buy-red' : '#F25050',
+      'gray' : '#e4e4e4',
+
     }
   },
   plugins: [],

@@ -11,8 +11,8 @@ function MenuBar() {
   return (
     <div className="flex h-[100vh]">
       <div
-        className={`transition-all duration-300 bg-Bg-gray z-100 ${
-          openDrawer ? 'w-[300px]' : 'w-0'
+        className={`transition-all duration-300 bg-Bg-gray z-100  ${
+          openDrawer ? 'w-[300px] border-l solid border-[#cfcfcf]' : 'w-0'
         }`}
       >
         {like && <MenuBarLikeContent /> }

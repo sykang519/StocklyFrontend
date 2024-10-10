@@ -3,7 +3,8 @@ name: Stockly Frontend
 on: [push, pull_request]
 
 jobs:
-  build-and-deploy:
+  # 1. Build and Test Job - 모든 브랜치에서 수행
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,12 +24,22 @@ jobs:
         
       - name: Build project
         run: npm run build
-      
+
+        
+# 2. Push to Another Repository Job - 메인 브랜치에서만 수행
+  push-to-another-repo:
+    runs-on: ubuntu-latest
+    needs: build  # 빌드가 완료된 후 실행
+    if: github.ref == 'refs/heads/main'  # 메인 브랜치일 때만 실행
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Create output
         run: sh ./build.sh
 
       - name: Pushes to another repository
-        if: github.ref == 'refs/heads/main'
         id: push_directiry
         uses: cpina/github-action-push-to-another-repository@main
         env: 
@@ -42,5 +53,5 @@ jobs:
           target-branch: main
 
       - name: Test get variable exported by push-to-another-repository
-        if: github.ref == 'refs/heads/main'
         run: echo $DESTINATION_CLONED_DIRECTORY 
+

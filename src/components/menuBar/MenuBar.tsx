@@ -3,6 +3,7 @@ import { FaRegClock } from 'react-icons/fa6';
 import { FaBell } from "react-icons/fa";
 import MenuBarLikeContent from './MenuBarLikeContent';
 import MenuBarChartContent from './/MenuBarChartContent';
+import MenuBarAlertContent from './MenuBarAlertContent';
 import useDrawerStore from '../../zustand/MenuBarStore';
 
 function MenuBar() {
@@ -16,7 +17,7 @@ function MenuBar() {
         }`}
       >
         {like && <MenuBarLikeContent /> }
-        {alert && <>알림</> }
+        {alert && <MenuBarAlertContent/> }
         {chart && <MenuBarChartContent /> }
       </div>
       <div className="w-[70px] bg-Bg-gray border-l solid border-[#cfcfcf] flex flex-col z-10">

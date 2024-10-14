@@ -5,7 +5,6 @@ import alert_hover from '../../assets/icons/alert_hover.svg';
 import { useState } from 'react';
 import * as React from 'react';
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 
 function TopContent() {
   const [likeSrc, setLikeSrc] = useState(like);

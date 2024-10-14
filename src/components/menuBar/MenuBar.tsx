@@ -2,8 +2,8 @@ import { IoHeart } from 'react-icons/io5';
 import { FaRegClock } from 'react-icons/fa6';
 import { FaBell } from "react-icons/fa";
 import MenuBarLikeContent from './MenuBarLikeContent';
-import MenuBarChartContent from './MenuBarChartContent';
-import useDrawerStore from '../zustand/MenuBarStore';
+import MenuBarChartContent from './/MenuBarChartContent';
+import useDrawerStore from '../../zustand/MenuBarStore';
 
 function MenuBar() {
   const {openDrawer, like, alert, chart, handleDrawer} = useDrawerStore();
@@ -19,7 +19,7 @@ function MenuBar() {
         {alert && <>알림</> }
         {chart && <MenuBarChartContent /> }
       </div>
-      <div className="w-[80px] bg-Bg-gray border-l solid border-[#cfcfcf] flex flex-col z-10">
+      <div className="w-[70px] bg-Bg-gray border-l solid border-[#cfcfcf] flex flex-col z-10">
         <button
           className="flex flex-col justify-center items-center m-[10px] group"
           onClick={() => handleDrawer('like')}

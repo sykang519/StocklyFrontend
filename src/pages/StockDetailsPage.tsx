@@ -1,5 +1,6 @@
 import TopNavBar from '../components/TopNavBar';
 import Order from '../components/orderContents/Order';
+import useDrawerStore from '../zustand/MenuBarStore';
 
 const boxStyles = {
     height: '800px',
@@ -9,9 +10,10 @@ const boxStyles = {
   };
 
 function StockDetailsPage() {
+  const {openDrawer} = useDrawerStore();
   return (
     <>
-      <div className="w-[100%] h-[100vh] bg-Bg-gray">
+      <div className={`w-[100%] h-[100vh] bg-Bg-gray transition-all duration-300 ${openDrawer ? 'mr-[370px]' : 'mr-[70px]'}`}>
         <TopNavBar />
         <div className="w-[100%] min-w-[1300px] px-[10px]">
           <div className="border">1</div>

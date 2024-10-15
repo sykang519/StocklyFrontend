@@ -16,6 +16,9 @@ module.exports = {
       'buy-red' : '#F25050',
       'gray' : '#e4e4e4',
       'reset-red' : '#CB3434',
+      'up' : '#E34545',
+      'down' : '#454DE3',
+      'chart-font' : '#6B6A76'
 
     }
   },

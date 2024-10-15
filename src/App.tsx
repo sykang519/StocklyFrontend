@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
-import MenuBar from './components/MenuBar';
+import MenuBar from './components/menuBar/MenuBar';
 import MyInvest from './pages/MyInvestPage';
 import StockDetailsPage from './pages/StockDetailsPage';
 

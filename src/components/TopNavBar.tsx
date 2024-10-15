@@ -29,8 +29,8 @@ function TopNavBar() {
 
   return (
     <>
-      <div className="w-[100%] flex justify-between items-center pb-[50px] min-w-[800px]">
-        <div className="flex items-center m-[10px] cursor-pointer">
+      <div className={`w-[100%] flex justify-between items-center pb-[50px] min-w-[800px]`}>
+        <div className="flex items-center m-[10px] cursor-pointer" onClick={goToHome}>
           <img src={MainLogo} className="w-[50px] h-[50px]" />
           <p className="text-[25px]">STOCKLY</p>
         </div>

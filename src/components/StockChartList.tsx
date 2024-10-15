@@ -1,55 +1,108 @@
 import { useState } from 'react';
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
-import TabContext from '@mui/lab/TabContext';
-import TabPanel from '@mui/lab/TabPanel';
+import { GrFormNext } from "react-icons/gr";
+import { GrFormPrevious } from "react-icons/gr";
 
-const tabStyles = {
-  color: '#909090', // 기본 텍스트 색상
-  '&.Mui-selected': { color: '#000000' }, // 선택된 탭 텍스트 색상
-};
+function StockChart() {
+  const datas = [
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: 5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    }
+  ];
 
-function StockChartList() {
-  const [sortedby, setSortedby] = useState('1');
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    console.log(event);
-    setSortedby(newValue);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20; // 한 페이지에 표시할 데이터 수
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentData = datas.slice(startIndex, startIndex + itemsPerPage);
+
+  const totalPages = Math.ceil(datas.length / itemsPerPage); // 총 페이지 수 계산
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePageClick = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // 페이지 버튼 생성
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+    const maxButtons = 10; // 최대 버튼 개수
+    const startPage = Math.floor((currentPage - 1) / maxButtons) * maxButtons + 1; // 현재 페이지에 따라 시작 페이지 결정
+    const endPage = Math.min(startPage + maxButtons - 1, totalPages); // 끝 페이지 결정
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(
+        <button
+          key={i}
+          className={`px-3 py-1 mx-1 rounded-md w-[35px] h-[35px] flex items-center justify-center ${currentPage === i ? 'text-black bg-Bg-gray' : 'text-chart-font'}`}
+          onClick={() => handlePageClick(i)}
+        >
+          {i}
+        </button>
+      );
+    }
+    return pageNumbers;
   };
 
   return (
     <div>
-      <div className="m-[10px] text-[25px]">실시간 차트</div>
-      <div>
-        <Box sx={{ width: '100%', typography: 'body1' }}>
-          <TabContext value={sortedby}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <Tabs
-                value={sortedby}
-                onChange={handleChange}
-                aria-label="lab API tabs example"
-                sx={{
-                  '& .MuiTabs-indicator': { backgroundColor: '#000000' }, // 인디케이터 색상
-                }}
-              >
-                <Tab sx={tabStyles} label="거래대금" value="1" disableRipple />
-                <Tab sx={tabStyles} label="거래량" value="2" disableRipple />
-                <Tab sx={tabStyles} label="급상승" value="3" disableRipple />
-                <Tab sx={tabStyles} label="급하락" value="4" disableRipple />
-                <Tab sx={tabStyles} label="인기" value="5" disableRipple />
-              </Tabs>
-            </Box>
-            <TabPanel value="1">거래대금</TabPanel>
-            <TabPanel value="2">거래량</TabPanel>
-            <TabPanel value="3">급상승</TabPanel>
-            <TabPanel value="4">급하락</TabPanel>
-            <TabPanel value="5">인기</TabPanel>
-          </TabContext>
-        </Box>
+      <table className="w-full">
+        <tr className="border-b border-[#e5e5e5]">
+          <th className="text-left w-[20%] py-[10px] text-chart-font px-1">종목</th>
+          <th className="text-right w-[15%] py-[10px] text-chart-font">현재가</th>
+          <th className="text-right w-[25%] py-[10px] text-chart-font">등락률</th>
+          <th className="text-right w-[20%] py-[10px] text-chart-font">거래대금</th>
+          <th className="text-right w-[20%] py-[10px] text-chart-font px-1">거래량</th>
+        </tr>
+        {currentData.map((data, index) => (
+          <tr key={startIndex + index}>
+            <td className="text-left flex py-[10px] text-chart-font px-1 text-[18px]">
+              <p className="text-MainBlue mr-10 font-bold text-[19px]">{startIndex + index + 1}</p> {data.company_name}
+            </td>
+            <td className="text-right py-[10px] text-chart-font text-[18px]">
+              {data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 원
+            </td>
+            <td
+              className={`text-right py-[10px] text-chart-font text-[18px] ${data.fluctuation_price > 0 ? 'text-up' : 'text-down'}`}
+            >
+              {data.fluctuation_price > 0 ? '+' : ''}
+              {data.fluctuation_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원 ({data.fluctuation_rate})%
+            </td>
+            <td className="text-right py-[10px] text-chart-font text-[18px]">{data.amount}</td>
+            <td className="text-right py-[10px] text-chart-font px-1 text-[18px]">{data.volume}</td>
+          </tr>
+        ))}
+      </table>
+      <div className="flex justify-center items-center my-4">
+        <button className="px-4 py-2 mx-2 bg-gray-200 rounded-md" onClick={handlePrevPage} disabled={currentPage === 1}>
+          <GrFormPrevious/>
+        </button>
+        {renderPageNumbers()}
+        <button
+          className="px-4 py-2 mx-2 bg-gray-200 rounded-md"
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+        >
+          <GrFormNext/>
+        </button>
       </div>
     </div>
   );
 }
 
-export default StockChartList;
+export default StockChart;

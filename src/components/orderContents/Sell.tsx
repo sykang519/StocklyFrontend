@@ -35,7 +35,7 @@ function Sell() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center mt-[20px]">
+    <div className="flex flex-col justify-center items-center mt-[20px] w-full">
       <div className="flex flex-column  w-[90%] my-[5px]">
         <div className="w-[30%] h-[33px] ">판매 가격</div>
         <div className="bg-gray w-[70%] rounded-[7px] flex">

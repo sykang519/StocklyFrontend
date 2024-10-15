@@ -7,12 +7,12 @@ function MenuBarChartContent() {
 
   return (
     <div>
-      <div className="p-[10px] text-[20px]">실시간</div>
+      <div className="p-[15px] text-[20px]">실시간</div>
       <hr className="w-[100%] border-font-gray" />
       <div>
         {live_list.map((live, index) => (
           <div className="flex justify-between items-center m-[5px]">
-            <div className="m-[10px] text-[18px] flex">
+            <div className="m-[10px] text-[18px] flex text-chart-font">
               <p className="mr-[10px] text-MainBlue font-bold">{index + 1}</p>
               {live.company_name}
             </div>

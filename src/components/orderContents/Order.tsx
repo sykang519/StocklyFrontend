@@ -17,7 +17,7 @@ function Order() {
   };
 
   return (
-    <div className="w-full overflow-hidden">
+    <div className="w-[100%] overflow-hidden">
       <div className="text-[17px] font-bold p-[15px]">주문하기</div>
       <div className="flex px-[15px]">
         <button

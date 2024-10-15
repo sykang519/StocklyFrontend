@@ -8,7 +8,7 @@ const like_list = [
 function MenuBarLikeContent() {
   return (
     <div>
-      <div className="p-[10px] text-[20px]">관심 종목</div>
+      <div className="p-[15px] text-[20px]">관심 종목</div>
       <hr className="w-[100%] border-font-gray" />
       <div>
         {like_list.map((like) => (

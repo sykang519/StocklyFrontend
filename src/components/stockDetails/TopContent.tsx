@@ -35,6 +35,7 @@ function TopContent() {
           aria-haspopup="true"
           aria-controls={open ? 'basic-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
+          className="mx-[10px]"
         >
           <img
             src={alertSrc}

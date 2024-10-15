@@ -78,9 +78,9 @@ function StockChart() {
               {data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 원
             </td>
             <td
-              className={`text-right py-[10px] text-chart-font text-[18px] ${data.fluctuation_rate > 0 ? 'text-up' : 'text-down'}`}
+              className={`text-right py-[10px] text-chart-font text-[18px] ${data.fluctuation_price > 0 ? 'text-up' : 'text-down'}`}
             >
-              {data.fluctuation_rate > 0 ? '+' : ''}
+              {data.fluctuation_price > 0 ? '+' : ''}
               {data.fluctuation_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원 ({data.fluctuation_rate})%
             </td>
             <td className="text-right py-[10px] text-chart-font text-[18px]">{data.amount}</td>

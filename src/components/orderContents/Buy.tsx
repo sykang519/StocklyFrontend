@@ -22,7 +22,7 @@ function Buy() {
   };
 
   useEffect(() => {
-    if (Number(price) > 0 && Number(quantity) > 0) {
+    if ((Number(price) > 0 && price[0]!=="0") && (Number(quantity) > 0 && quantity[0]!=="0")) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);

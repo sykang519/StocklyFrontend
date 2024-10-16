@@ -21,7 +21,7 @@ function MyInvestPage() {
               </div>
               <div className="flex flex-col w-[39%] justify-between">
                 <div className="h-[30%] bg-white rounded-[15px]"> 3 </div>
-                <div className="h-[66%] bg-white rounded-[15px]"> <DoughnutChart/> </div>
+                <div className="h-[66%] bg-white rounded-[15px] flex justify-center items-center"> <DoughnutChart/> </div>
               </div>
             </div>
             <div className="flex justify-between h-[670px] my-[30px]">

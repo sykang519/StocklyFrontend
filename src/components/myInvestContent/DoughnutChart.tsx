@@ -51,7 +51,7 @@ const options = {
 
 function DoughnutChart() {
   return (
-    <div className="flex justify-center items-center m-[20px]">
+    <div className="w-[80%] flex justify-center items-center">
       <Doughnut data={data} options={options}/>
     </div>
   );

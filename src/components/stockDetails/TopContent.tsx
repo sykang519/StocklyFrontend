@@ -2,13 +2,15 @@ import like from '../../assets/icons/like.svg';
 import like_hover from '../../assets/icons/like_hover.svg';
 import alert from '../../assets/icons/alert.svg';
 import alert_hover from '../../assets/icons/alert_hover.svg';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as React from 'react';
 import Menu from '@mui/material/Menu';
 
 function TopContent() {
   const [likeSrc, setLikeSrc] = useState(like);
   const [alertSrc, setAlertSrc] = useState(alert);
+  const [price, setPrice] = useState("");
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -19,6 +21,15 @@ function TopContent() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    if (Number(price) > 0 && price[0]!=='0'){
+      setIsDisabled(false);
+    }
+    else{
+      setIsDisabled(true);
+    }
+  }, [price]);
 
   return (
     <div className="flex justify-between w-full ">
@@ -71,14 +82,14 @@ function TopContent() {
               <br />
               얼마일 때 알려드릴까요?
             </div>
-            <input
-              className="border border-MainBlue rounded-[5px] mx-[20px] my-[10px] px-[10px] "
-              placeholder="가격을 입력하세요"
-            ></input>
+            <div className="border border-MainBlue mx-[20px] rounded-[5px] flex justify-between items-center">
+              <input className="w-[90%] outline-none px-[5px] m-[2px]" placeholder="가격을 입력하세요" value={price} onChange={(e)=>setPrice(e.target.value)}/>
+              <p className="w-[10%]">원</p>
+            </div>
           </div>
           <div>
             <div className="w-full flex justify-end ">
-              <button className=" m-[20px] bg-MainBlue text-white w-[60px] h-[30px] text-[13px] rounded-[3px]">
+              <button className=" m-[20px] bg-MainBlue text-white w-[60px] h-[30px] text-[13px] rounded-[3px]" disabled={isDisabled}>
                 알림 받기
               </button>
             </div>

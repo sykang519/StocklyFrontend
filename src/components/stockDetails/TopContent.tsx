@@ -1,5 +1,4 @@
 import like from '../../assets/icons/like.svg';
-import like_hover from '../../assets/icons/like_hover.svg';
 import alert from '../../assets/icons/alert.svg';
 import alert_hover from '../../assets/icons/alert_hover.svg';
 import like2 from '../../assets/icons/like2.svg';

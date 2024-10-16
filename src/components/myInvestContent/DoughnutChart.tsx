@@ -3,8 +3,6 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-
-
 const data = {
   labels: ['삼성전자', '카카오', '네이버', '삼성SDI'],
   datasets: [
@@ -22,37 +20,38 @@ const data = {
   ],
 };
 
-
-
 const options = {
-    // 옵션 (1) : 부모 크기에 맞춰 차트 반응형
-    responsive: true,
-    // 옵션 (2) : 차트에 커서 갖다대면 뜨는거
-    interaction: {
-      mode: 'index' as const,
-      intersect: false,
-    },
-    // 옵션 (3) : 척도
-    scales: { 
-      x: {
-        display: false, // x축
-        grid: {
-          display: false, // 세로선
-        },
-      },
-      y: {
-        display: false, //y축
-        grid: {
-          display: false, //가로선
-        },
+  // 옵션 (1) : 부모 크기에 맞춰 차트 반응형
+  responsive: true,
+  // 옵션 (2) : 차트에 커서 갖다대면 뜨는거
+  interaction: {
+    mode: 'index' as const,
+    intersect: false,
+  },
+  // 옵션 (3) : 척도
+  scales: {
+    x: {
+      display: false, // x축
+      grid: {
+        display: false, // 세로선
       },
     },
-  };
+    y: {
+      display: false, //y축
+      grid: {
+        display: false, //가로선
+      },
+    },
+  },
+};
 
 function DoughnutChart() {
   return (
-    <div className="w-[80%] flex justify-center items-center">
-      <Doughnut data={data} options={options}/>
+    <div className="w-full h-full flex flex-col  items-center">
+      <div className="w-full text-[23px] p-[20px]">보유 종목</div>
+      <div className="w-[80%] content-center">
+        <Doughnut data={data} options={options}/>
+      </div>
     </div>
   );
 }

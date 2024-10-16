@@ -5,6 +5,7 @@ import useDrawerStore from '../zustand/MenuBarStore';
 import DoughnutChart from '../components/myInvestContent/DoughnutChart';
 import RoiChart from '../components/myInvestContent/RoiChart';
 import BarChart from '../components/myInvestContent/BarChart';
+import MyStockList from '../components/myInvestContent/MyStockList';
 
 function MyInvestPage() {
   const {openDrawer} = useDrawerStore();
@@ -21,13 +22,13 @@ function MyInvestPage() {
               </div>
               <div className="flex flex-col w-[39%] justify-between">
                 <div className="h-[30%] bg-white rounded-[15px]"> 3 </div>
-                <div className="h-[66%] bg-white rounded-[15px] flex justify-center items-center"> <DoughnutChart/> </div>
+                <div className="h-[66%] bg-white rounded-[15px]"> <DoughnutChart/> </div>
               </div>
             </div>
             <div className="flex justify-between h-[670px] my-[30px]">
               <div className="w-[32%] bg-white rounded-[15px]"> <Charge/> </div>
               <div className="w-[32%] bg-white rounded-[15px]"> <Reset/> </div>
-              <div className="w-[32%] bg-white rounded-[15px]"> 7 </div>
+              <div className="w-[32%] bg-white rounded-[15px]"> <MyStockList/> </div>
             </div>
           </div>
         </div>

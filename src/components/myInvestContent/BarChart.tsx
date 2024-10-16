@@ -38,8 +38,11 @@ const options = {
 
 function BarChart() {
   return (
-    <div className="w-full h-full flex justify-center items-center"> {/* w-full과 h-full로 전체 크기 사용 */}
+    <div className="w-full h-full flex flex-col items-center">
+      <div className="w-full text-[23px] p-[20px]">계좌 변동 한 눈에 보기</div>
+      <div className="w-[80%] flex justify-center items-center">
       <Bar options={options} data={data} />
+      </div>
     </div>
   );
 }

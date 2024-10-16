@@ -114,7 +114,7 @@ function TopContent() {
             src={likeSrc}
             className="mr-[30px] cursor-pointer w-[48.5px] h-[48.5px]"
             alt="좋아요"
-            onMouseEnter={() => setLikeSrc(isLike ? like2_hover : like_hover)} // hover 상태일 때
+            onMouseEnter={() => setLikeSrc(isLike ? like2_hover : like2_hover)} // hover 상태일 때
             onMouseLeave={() => setLikeSrc(isLike ? like2 : like)} // 기본 상태로 복귀
             onClick={handleLike}
           />

@@ -5,6 +5,10 @@ import { useState, useEffect } from 'react';
 function Sell() {
   const [isDisabled, setIsDisabled] = useState(true);
 
+  const [purchase, setPurchase] = useState('limit');
+  //limit : 지정가
+  //market : 시장가
+
   const [price, setPrice] = useState('');
   const plusPrice = () => {
     setPrice(String(Number(price) + 1));
@@ -22,7 +26,7 @@ function Sell() {
   };
 
   useEffect(() => {
-    if ((Number(price) > 0 && price[0]!=="0") && (Number(quantity) > 0 && quantity[0]!=="0")) {
+    if (Number(price) > 0 && price[0] !== '0' && Number(quantity) > 0 && quantity[0] !== '0') {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
@@ -38,9 +42,24 @@ function Sell() {
     <div className="flex flex-col justify-center items-center mt-[20px] w-full">
       <div className="flex flex-column  w-[90%] my-[5px]">
         <div className="w-[30%] h-[33px] ">판매 가격</div>
-        <div className="bg-gray w-[70%] rounded-[7px] flex">
-          <button className="w-[50%] text-[13px] flex justify-center items-center">지정가</button>
-          <button className="w-[50%] text-[13px] flex justify-center items-center">시장가</button>
+        <div className="bg-gray w-[70%] rounded-[7px] flex items-center relative">
+          <div
+            className={`bg-white w-[50%] absolute rounded-[5px] z-1 text-white transition-transform duration-300 ease-in-out  ${purchase === 'limit' ? 'translate-x-[5%]' : 'translate-x-[95%]'}`}
+          >
+            .
+          </div>
+          <button
+            className="w-[50%] text-[13px] flex justify-center items-center bg-none z-10 content-center "
+            onClick={() => setPurchase('limit')}
+          >
+            지정가
+          </button>
+          <button
+            className="w-[50%] text-[13px] flex justify-center items-center bg-none z-10 content-center"
+            onClick={() => setPurchase('market')}
+          >
+            시장가
+          </button>
         </div>
       </div>
       <div className="flex flex-column justify-end w-[90%] my-[5px]">
@@ -88,7 +107,9 @@ function Sell() {
         <div className="w-[70%] text-right">0원</div>
       </div>
       <button
-        className={`w-[90%] h-[40px] rounded-[7px] my-[10px] ${isDisabled ? 'bg-[#eeeeee] text-[#a6a6a6]' : 'bg-MainBlue text-white'}`} onClick={handleClick} disabled={isDisabled}
+        className={`w-[90%] h-[40px] rounded-[7px] my-[10px] ${isDisabled ? 'bg-[#eeeeee] text-[#a6a6a6]' : 'bg-MainBlue text-white'}`}
+        onClick={handleClick}
+        disabled={isDisabled}
       >
         매도하기
       </button>

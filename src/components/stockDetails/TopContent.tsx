@@ -2,6 +2,8 @@ import like from '../../assets/icons/like.svg';
 import like_hover from '../../assets/icons/like_hover.svg';
 import alert from '../../assets/icons/alert.svg';
 import alert_hover from '../../assets/icons/alert_hover.svg';
+import like2 from '../../assets/icons/like2.svg';
+import like2_hover from '../../assets/icons/like2_hover.svg';
 import { useState, useEffect } from 'react';
 import * as React from 'react';
 import Menu from '@mui/material/Menu';
@@ -9,8 +11,9 @@ import Menu from '@mui/material/Menu';
 function TopContent() {
   const [likeSrc, setLikeSrc] = useState(like);
   const [alertSrc, setAlertSrc] = useState(alert);
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
+  const [isLike, setIsLike] = useState(false);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -22,11 +25,14 @@ function TopContent() {
     setAnchorEl(null);
   };
 
+  const handleLike = () =>{
+    setIsLike(!isLike);
+  }
+
   useEffect(() => {
-    if (Number(price) > 0 && price[0]!=='0'){
+    if (Number(price) > 0 && price[0] !== '0') {
       setIsDisabled(false);
-    }
-    else{
+    } else {
       setIsDisabled(true);
     }
   }, [price]);
@@ -83,25 +89,36 @@ function TopContent() {
               얼마일 때 알려드릴까요?
             </div>
             <div className="border border-MainBlue mx-[20px] rounded-[5px] flex justify-between items-center">
-              <input className="w-[90%] outline-none px-[5px] m-[2px]" placeholder="가격을 입력하세요" value={price} onChange={(e)=>setPrice(e.target.value)}/>
+              <input
+                className="w-[90%] outline-none px-[5px] m-[2px]"
+                placeholder="가격을 입력하세요"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
               <p className="w-[10%]">원</p>
             </div>
           </div>
           <div>
             <div className="w-full flex justify-end ">
-              <button className=" m-[20px] bg-MainBlue text-white w-[60px] h-[30px] text-[13px] rounded-[3px]" disabled={isDisabled}>
+              <button
+                className=" m-[20px] bg-MainBlue text-white w-[60px] h-[30px] text-[13px] rounded-[3px]"
+                disabled={isDisabled}
+              >
                 알림 받기
               </button>
             </div>
           </div>
         </Menu>
-        <img
-          src={likeSrc}
-          className="mr-[30px] cursor-pointer w-[48.5px] h-[48.5px]"
-          alt="좋아요"
-          onMouseEnter={() => setLikeSrc(like_hover)} // hover 상태일 때
-          onMouseLeave={() => setLikeSrc(like)} // 기본 상태로 복귀
-        />
+        <div>
+          <img
+            src={likeSrc}
+            className="mr-[30px] cursor-pointer w-[48.5px] h-[48.5px]"
+            alt="좋아요"
+            onMouseEnter={() => setLikeSrc(isLike ? like2_hover : like_hover)} // hover 상태일 때
+            onMouseLeave={() => setLikeSrc(isLike ? like2 : like)} // 기본 상태로 복귀
+            onClick={handleLike}
+          />
+        </div>
       </div>
     </div>
   );

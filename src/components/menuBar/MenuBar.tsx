@@ -10,10 +10,10 @@ function MenuBar() {
   const {openDrawer, like, alert, chart, handleDrawer} = useDrawerStore();
 
   return (
-    <div className={`flex h-[100vh] fixed top-0 right-0`}>
+    <div className={`flex h-[100vh] fixed top-0 right-0 `}>
       <div
         className={`transition-all duration-300 bg-Bg-gray overflow-auto  ${
-          openDrawer ? 'w-[300px] border-l solid border-[#cfcfcf] ' : 'w-0 z-0'
+          openDrawer ? 'w-[300px] border-l solid border-[#cfcfcf] ' : 'w-0'
         }`}
       >
         {like && <MenuBarLikeContent /> }

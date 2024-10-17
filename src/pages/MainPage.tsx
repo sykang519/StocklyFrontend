@@ -2,9 +2,6 @@ import TopNavBar from '../components/TopNavBar';
 import StockChartList from '../components/StockChart';
 import useDrawerStore from '../zustand/MenuBarStore';
 
-function Carousel() {
-  return (<div>hello</div>);
-}
 
 function MainPage() {
   const { openDrawer } = useDrawerStore();
@@ -17,7 +14,6 @@ function MainPage() {
             <StockChartList />
           </div>
         </div>
-        <Carousel />
       </div>
     </>
   );

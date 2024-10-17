@@ -7,7 +7,7 @@ function SignUp() {
   const [checkPassword, setCheckPassword] = useState('');
 
   useEffect(() => {
-    if (password===checkPassword){
+    if (password===checkPassword ){
       setIsCorrect(true);
       setIsDisabled(false);
     }else{

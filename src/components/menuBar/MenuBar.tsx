@@ -12,7 +12,7 @@ function MenuBar() {
   return (
     <div className={`flex h-[100vh] fixed top-0 right-0 z-10`}>
       <div
-        className={`transition-all duration-300 bg-Bg-gray z-100  ${
+        className={`transition-all duration-300 bg-Bg-gray z-100 overflow-auto ${
           openDrawer ? 'w-[300px] border-l solid border-[#cfcfcf]' : 'w-0'
         }`}
       >

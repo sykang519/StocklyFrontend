@@ -17,7 +17,7 @@ function StockDetailsPage() {
   return (
     <>
       <div
-        className={`w-[100%] h-[100vh] bg-Bg-gray transition-all duration-300 ${openDrawer ? 'mr-[370px]' : 'mr-[70px]'}`}
+        className={`w-[100%] h-[100vh] bg-Bg-gray transition-all duration-300 z-10 ${openDrawer ? 'mr-[370px]' : 'mr-[70px]'}`}
       >
         <TopNavBar />
         <div className="w-full min-w-[1300px] px-[10px]">

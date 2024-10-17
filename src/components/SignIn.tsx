@@ -8,20 +8,22 @@ function SignIn() {
   }
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="text-[50px] mb-[150px]">로그인</div>
+      <div className="text-[45px] mb-[150px]">로그인</div>
       <form className="flex flex-col justify-center items-center">
         <input
           className="w-[575px] h-[80px] m-[15px] p-[20px] rounded-[7px] shadow"
           placeholder="이메일"
+          type="email"
           required
         ></input>
         <input
           className="w-[575px] h-[80px] m-[15px] p-[20px] rounded-[7px] shadow"
           placeholder="비밀번호"
+          type="password"
           required
         ></input>
         <button
-          className="w-[300px] h-[65px] mt-[100px] text-[28px] bg-MainBlue text-white rounded-[7px]"
+          className="w-[300px] h-[65px] mt-[100px] text-[28px] bg-MainBlue text-white rounded-[10px]"
           type="submit"
           onClick={gotoMain}
         >

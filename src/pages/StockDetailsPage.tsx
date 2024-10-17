@@ -2,6 +2,8 @@ import TopNavBar from '../components/TopNavBar';
 import Order from '../components/orderContents/Order';
 import useDrawerStore from '../zustand/MenuBarStore';
 import TopContent from '../components/stockDetails/TopContent';
+import Chart from '../components/stockDetails/Chart';
+import Price from '../components/stockDetails/Price';
 
 const boxStyles = {
   height: '800px',
@@ -24,10 +26,10 @@ function StockDetailsPage() {
           </div>
           <div className="flex">
             <div className="w-[55%]" style={boxStyles}>
-              2
+              <Chart/>
             </div>
             <div className="w-[25%]" style={boxStyles}>
-              3
+              <Price/>
             </div>
             <div className="w-[20%]" style={boxStyles}>
               <Order />

@@ -11,6 +11,22 @@ function StockChart() {
       fluctuation_rate: 2.3,
       amount: 10000,
       volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
     }
   ];
 

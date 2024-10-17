@@ -41,9 +41,9 @@ function StockChart() {
               </Tabs>
             </Box>
             <TabPanel value="1" sx={{padding:0}}><StockChartList/></TabPanel>
-            <TabPanel value="2" sx={{padding:0}}>거래량</TabPanel>
-            <TabPanel value="3" sx={{padding:0}}>급상승</TabPanel>
-            <TabPanel value="4" sx={{padding:0}}>급하락</TabPanel>
+            <TabPanel value="2" sx={{padding:0}}><StockChartList/></TabPanel>
+            <TabPanel value="3" sx={{padding:0}}><StockChartList/></TabPanel>
+            <TabPanel value="4" sx={{padding:0}}><StockChartList/></TabPanel>
           </TabContext>
         </Box>
       </div>

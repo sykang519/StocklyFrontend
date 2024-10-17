@@ -14,7 +14,7 @@ function OnBoarding3() {
         viewport={{ once: false }} // 애니메이션 최초 한 번만 실행할건지
         transition={{
           ease: 'easeInOut',
-          duration: 3,
+          duration: 2,
           y: { duration: 1 },
         }}
       >
@@ -27,7 +27,21 @@ function OnBoarding3() {
               사용자의 수익률을 한눈에
             </div>
           </div>
-          <div className="w-[700px] h-[500px] m-[50px]">{isInView && <ExampleMyInvest />}</div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 200 }} // opacity 0 - 안 보임
+            whileInView={{ opacity: 1, y: 0 }} // 컴포넌트가 뷰포트에 있을 때의 상태
+            onViewportEnter={() => setIsInView(true)}
+            onViewportLeave={() => setIsInView(false)}
+            viewport={{ once: false }} // 애니메이션 최초 한 번만 실행할건지
+            transition={{
+              ease: 'easeInOut',
+              duration: 2,
+              y: { duration: 2 },
+            }}
+          >
+            <div className="w-[700px] h-[500px] m-[50px]">{isInView && <ExampleMyInvest />}</div>
+          </motion.div>
         </div>
       </motion.div>
     </div>

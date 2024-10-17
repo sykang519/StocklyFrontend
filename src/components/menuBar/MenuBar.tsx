@@ -55,6 +55,8 @@ function MenuBar() {
           )}
         </button>
 
+        <div className="flex justify-center items-center w-[100%] my-[10px]"><hr className="border-font-gray w-[80%]" /></div>
+
         <button
           className="flex flex-col justify-center items-center m-[10px] group "
           onClick={() => handleDrawer('chart')}

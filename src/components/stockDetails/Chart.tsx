@@ -1,6 +1,7 @@
 import { Bar } from 'react-chartjs-2';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { useRef } from 'react';
 
 import { useState } from 'react';
 
@@ -9,6 +10,10 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend,
 function StockDetailsPage() {
   const [filter, setFilter] = useState('day');
   // day, week, month, year
+  const stockChartRef = useRef(null); // 주식 차트 참조
+  const volumeChartRef = useRef<any>(null); // 거래량 차트 참조
+  // const commonRef = useRef<any>(null);
+
 
   const stockprice = [
     [13, 15],
@@ -107,9 +112,7 @@ function StockDetailsPage() {
             enabled: true,
           },
           mode: 'x',
-          onZoom: function (event : any) {
-            handleZoom(event.chart);
-          },
+          onZoom: ({ chart }: any) => handleZoomSync(chart),
         },
       },
     },
@@ -145,39 +148,26 @@ function StockDetailsPage() {
             enabled: true,
           },
           mode: 'x',
-          onZoom: function (event : any) {
-            handleZoom(event.chart);
-          },
+          onZoom: ({ chart }: any) => handleZoomSync(chart),
         },
       },
     },
   };
 
-  // 줌 이벤트를 처리하는 함수
-  const handleZoom = (chart: any) => {
-    const { chartArea } = chart; // chartArea를 직접 가져오기
-    if (!chartArea) {
-      console.error("chartArea is undefined");
-      return; // chartArea가 없으면 함수 종료
+
+  const handleZoomSync = (chart: any) => {
+    const stockChart = stockChartRef.current;
+    const volumeChart = volumeChartRef.current;
+  
+    if (stockChart && volumeChart) {
+      const xAxis = chart.scales.x;
+      stockChart.options.scales.x.min = xAxis.min;
+      stockChart.options.scales.x.max = xAxis.max;
+      volumeChart.options.scales.x.min = xAxis.min;
+      volumeChart.options.scales.x.max = xAxis.max;
+      stockChart.update();
+      volumeChart.update();
     }
-  
-    const zoomedCharts = [chart, chartArea.chart]; // 주식 차트와 거래량 차트
-    console.log(chart, "111")
-    console.log(chartArea.chart, "222");
-  
-    zoomedCharts.forEach((c) => {
-      if (c) {
-        console.log(c, "1111");
-        const xAxis = c.scales.x;
-        if (xAxis) {
-          c.options.scales.x.min = xAxis.min;
-          c.options.scales.x.max = xAxis.max;
-          c.update();
-          console.log(c, "2222");
-          
-        }
-      }
-    });
   };
 
   return (
@@ -213,8 +203,8 @@ function StockDetailsPage() {
         <div></div>
       </div>
       <div className="flex flex-col justify-center items-center w-full h-full">
-        <Bar options={StockOptions} data={StockData} />
-        <Bar options={VolumeOptions} data={VolumeData} />
+      <Bar ref={stockChartRef} options={StockOptions} data={StockData} />
+      <Bar ref={volumeChartRef} options={VolumeOptions} data={VolumeData} />
       </div>
     </>
   );

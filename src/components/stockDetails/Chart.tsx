@@ -1,47 +1,183 @@
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+import zoomPlugin from 'chartjs-plugin-zoom';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
 import { useState } from 'react';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, zoomPlugin);
 
 function StockDetailsPage() {
   const [filter, setFilter] = useState('day');
   // day, week, month, year
-  const data = {
-    labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+
+  const stockprice = [
+    [13, 15],
+    [15, 12],
+    [12, 10],
+    [10, 9],
+    [9, 13],
+    [13, 17],
+    [17, 15],
+    [15, 16],
+    [16, 14],
+    [14, 18],
+    [13, 15],
+    [15, 12],
+    [12, 10],
+    [10, 9],
+    [9, 13],
+    [13, 17],
+    [17, 15],
+    [15, 16],
+    [16, 14],
+    [14, 18],
+  ];
+  const trading_volume = [3, 4, 5, 3, 4, 2, 6, 8, 9, 10, 3, 4, 5, 3, 4, 2, 6, 8, 9, 10];
+  const labels = [
+    '1월',
+    '2월',
+    '3월',
+    '4월',
+    '5월',
+    '6월',
+    '7월',
+    '8월',
+    '9월',
+    '10월',
+    '1월',
+    '2월',
+    '3월',
+    '4월',
+    '5월',
+    '6월',
+    '7월',
+    '8월',
+    '9월',
+    '10월',
+  ];
+  const StockData = {
+    labels: labels,
     datasets: [
       {
-        label: 'Sales',
-        data: [120, 200, 150, 80, 250, 120, 200, 150, 80, 250, 10, 500],
-        backgroundColor: ['rgba(75, 192, 192, 0.2)'],
-        borderColor: ['rgba(75, 192, 192, 1)'],
-        borderWidth: 1,
+        label: '주가',
+        data: stockprice,
+        backgroundColor: stockprice.map(([start, end]) => (start > end ? '#454DE3' : '#E34545')),
       },
     ],
   };
 
-  const options = {
-    // 옵션 (1) : 부모 크기에 맞춰 차트 반응형
+  const VolumeData = {
+    labels: labels,
+    datasets: [
+      {
+        label: '거래량',
+        data: trading_volume,
+        backgroundColor: stockprice.map(([start, end]) => (start > end ? '#454DE3' : '#E34545')),
+      },
+    ],
+  };
+
+  const StockOptions = {
+    type: 'bar',
     responsive: true,
-    // 옵션 (2) : 차트에 커서 갖다대면 뜨는거
     interaction: {
       mode: 'index' as const,
       intersect: false,
     },
-    // 옵션 (3) : 척도
-    scales: { 
+    scales: {
       x: {
-        grid: {
-          display: true, // 세로선
-        },
+        grid: { display: true },
+        display: true, // x축 표시
       },
       y: {
-        grid: {
-          display: true, //가로선
+        grid: { display: true },
+      },
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+      zoom: {
+        pan: {
+          enabled: true,
+          mode: 'x',
+        },
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          mode: 'x',
+          onZoom: function (event : any) {
+            handleZoom(event.chart);
+          },
         },
       },
     },
+  };
+
+  const VolumeOptions = {
+    type: 'bar',
+    responsive: true,
+    interaction: {
+      mode: 'index' as const,
+      intersect: false,
+    },
+    scales: {
+      x: {
+        grid: { display: true },
+        display: true, // x축 표시
+      },
+      y: {
+        grid: { display: true },
+      },
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+      zoom: {
+        pan: {
+          enabled: true,
+          mode: 'x',
+        },
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          mode: 'x',
+          onZoom: function (event : any) {
+            handleZoom(event.chart);
+          },
+        },
+      },
+    },
+  };
+
+  // 줌 이벤트를 처리하는 함수
+  const handleZoom = (chart: any) => {
+    const { chartArea } = chart; // chartArea를 직접 가져오기
+    if (!chartArea) {
+      console.error("chartArea is undefined");
+      return; // chartArea가 없으면 함수 종료
+    }
+  
+    const zoomedCharts = [chart, chartArea.chart]; // 주식 차트와 거래량 차트
+    console.log(chart, "111")
+    console.log(chartArea.chart, "222");
+  
+    zoomedCharts.forEach((c) => {
+      if (c) {
+        console.log(c, "1111");
+        const xAxis = c.scales.x;
+        if (xAxis) {
+          c.options.scales.x.min = xAxis.min;
+          c.options.scales.x.max = xAxis.max;
+          c.update();
+          console.log(c, "2222");
+          
+        }
+      }
+    });
   };
 
   return (
@@ -76,8 +212,9 @@ function StockDetailsPage() {
         </div>
         <div></div>
       </div>
-      <div className="flex justify-center items-center w-full h-full">
-        <Line options={options} data={data} width="894px" height="320px" />
+      <div className="flex flex-col justify-center items-center w-full h-full">
+        <Bar options={StockOptions} data={StockData} />
+        <Bar options={VolumeOptions} data={VolumeData} />
       </div>
     </>
   );

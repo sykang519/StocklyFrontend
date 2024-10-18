@@ -4,19 +4,25 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const data = {
-    labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+    labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월'],
     datasets: [
       {
-        label: 'Sales',
-        data: [120, 200, 150, 80, 250, 120, 200, 150, 80, 250, 10, 500],
-        backgroundColor: 'rgba(75, 192, 192, 0.2)', // 단일 색상
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1,
+        label: '예수금',
+        data: [50, 40, 20, 30, 30, 40, 20, 40],
+        backgroundColor: '#76d3ae'
       },
+      {
+        label: '주식',
+        data: [10, 20, 30, 40, 30, 40, 20, 10],
+        backgroundColor: '#f8d865',
+        borderWidth: 1,
+      }
     ],
 };
 
 const options = {
+    type: 'bar',
+    data: data,
     responsive: true,
     interaction: {
       mode: 'index' as const,
@@ -27,11 +33,13 @@ const options = {
         grid: {
           display: true,
         },
+        stacked: true,
       },
       y: {
         grid: {
           display: true,
         },
+        stacked: true,
       },
     },
 };

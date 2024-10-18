@@ -2,7 +2,6 @@ import TopNavBar from '../components/TopNavBar';
 import StockChartList from '../components/StockChart';
 import useDrawerStore from '../zustand/MenuBarStore';
 
-
 function MainPage() {
   const { openDrawer } = useDrawerStore();
   return (

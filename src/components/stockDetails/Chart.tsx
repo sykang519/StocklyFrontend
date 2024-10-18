@@ -11,9 +11,7 @@ function StockDetailsPage() {
   const [filter, setFilter] = useState('day');
   // day, week, month, year
   const stockChartRef = useRef(null); // 주식 차트 참조
-  const volumeChartRef = useRef<any>(null); // 거래량 차트 참조
-  // const commonRef = useRef<any>(null);
-
+  const volumeChartRef = useRef(null); // 거래량 차트 참조
 
   const stockprice = [
     [13, 15],
@@ -26,40 +24,11 @@ function StockDetailsPage() {
     [15, 16],
     [16, 14],
     [14, 18],
-    [13, 15],
-    [15, 12],
-    [12, 10],
-    [10, 9],
-    [9, 13],
-    [13, 17],
-    [17, 15],
-    [15, 16],
-    [16, 14],
-    [14, 18],
   ];
-  const trading_volume = [3, 4, 5, 3, 4, 2, 6, 8, 9, 10, 3, 4, 5, 3, 4, 2, 6, 8, 9, 10];
-  const labels = [
-    '1월',
-    '2월',
-    '3월',
-    '4월',
-    '5월',
-    '6월',
-    '7월',
-    '8월',
-    '9월',
-    '10월',
-    '1월',
-    '2월',
-    '3월',
-    '4월',
-    '5월',
-    '6월',
-    '7월',
-    '8월',
-    '9월',
-    '10월',
-  ];
+  const trading_volume = [3, 4, 5, 3, 4, 2, 6, 8, 9, 10];
+  const labels = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월'];
+
+  
   const StockData = {
     labels: labels,
     datasets: [
@@ -89,6 +58,8 @@ function StockDetailsPage() {
       mode: 'index' as const,
       intersect: false,
     },
+    animation: { duration: 0 },
+    hover: { animationDuration: 0 },
     scales: {
       x: {
         grid: { display: true },
@@ -125,6 +96,8 @@ function StockDetailsPage() {
       mode: 'index' as const,
       intersect: false,
     },
+    animation: { duration: 0 },
+    hover: { animationDuration: 0 },
     scales: {
       x: {
         grid: { display: true },
@@ -154,11 +127,10 @@ function StockDetailsPage() {
     },
   };
 
-
   const handleZoomSync = (chart: any) => {
     const stockChart = stockChartRef.current;
     const volumeChart = volumeChartRef.current;
-  
+
     if (stockChart && volumeChart) {
       const xAxis = chart.scales.x;
       stockChart.options.scales.x.min = xAxis.min;
@@ -203,8 +175,8 @@ function StockDetailsPage() {
         <div></div>
       </div>
       <div className="flex flex-col justify-center items-center w-full h-full">
-      <Bar ref={stockChartRef} options={StockOptions} data={StockData} />
-      <Bar ref={volumeChartRef} options={VolumeOptions} data={VolumeData} />
+        <Bar ref={stockChartRef} options={StockOptions} data={StockData} />
+        <Bar ref={volumeChartRef} options={VolumeOptions} data={VolumeData} />
       </div>
     </>
   );

@@ -6,7 +6,6 @@ import Chart from '../components/stockDetails/Chart';
 import Price from '../components/stockDetails/Price';
 
 const boxStyles = {
-  height: '800px',
   backgroundColor: '#ffffff',
   margin: '10px',
   borderRadius: '15px',
@@ -17,7 +16,7 @@ function StockDetailsPage() {
   return (
     <>
       <div
-        className={`w-[100%] h-[100vh] bg-Bg-gray transition-all duration-300 ${openDrawer ? 'mr-[370px]' : 'mr-[70px]'}`}
+        className={`w-[100%] h-full bg-Bg-gray transition-all duration-300 ${openDrawer ? 'mr-[370px]' : 'mr-[70px]'}`}
       >
         <TopNavBar />
         <div className="w-full min-w-[1300px] px-[10px]">

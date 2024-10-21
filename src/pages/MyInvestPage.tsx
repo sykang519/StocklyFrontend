@@ -28,7 +28,7 @@ function MyInvestPage() {
             <div className="flex justify-between h-[670px] my-[30px]">
               <div className="w-[32%] bg-white rounded-[15px]"> <Charge/> </div>
               <div className="w-[32%] bg-white rounded-[15px]"> <Reset/> </div>
-              <div className="w-[32%] bg-white rounded-[15px]"> <MyStockList/> </div>
+              <div className="w-[32%] bg-white rounded-[15px] overflow-auto"> <MyStockList/> </div>
             </div>
           </div>
         </div>

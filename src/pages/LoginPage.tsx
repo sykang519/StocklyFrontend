@@ -28,8 +28,8 @@ function LoginPage() {
             <div className="text-[45px] font-bold">STOCKLY</div>
           </div>
           <div className="m-[30px]">
-            <button className="w-[230px] h-[65px] text-white bg-MainBlue rounded-[10px] text-[25px] m-[10px]" onClick={ShowLogin}> 로그인 </button>
-            <button className="w-[230px] h-[65px] rounded-[10px] text-[25px] border-solid border-[1px] border-gray-600 m-[10px]" onClick={ShowSignUp}> 회원가입 </button>
+            <button className="w-[230px] h-[65px] text-white bg-MainBlue rounded-[10px] text-[25px] m-[10px] drop-shadow-xl hover:bg-[#1063d8]" onClick={ShowLogin}> 로그인 </button>
+            <button className="w-[230px] h-[65px] rounded-[10px] text-[25px] border-solid border-[1px] border-[#d0d0d0] m-[10px] drop-shadow-xl hover:bg-[#fcfdff] " onClick={ShowSignUp}> 회원가입 </button>
           </div>
         </div>
       </div>

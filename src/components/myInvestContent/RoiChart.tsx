@@ -17,14 +17,12 @@ const data = {
 };
 
 const options = {
-  // 옵션 (1) : 부모 크기에 맞춰 차트 반응형
   responsive: true,
-  // 옵션 (2) : 차트에 커서 갖다대면 뜨는거
+  maintainAspectRatio: false,
   interaction: {
     mode: 'index' as const,
     intersect: false,
   },
-  // 옵션 (3) : 척도
   scales: {
     x: {
       grid: {
@@ -43,7 +41,7 @@ function RoiChart() {
   return (
     <div className="w-full h-full flex flex-col items-center">
       <div className="w-full text-[23px] p-[20px]">수익률</div>
-      <div className="w-[80%] flex justify-center items-center">
+      <div className="w-full flex justify-center items-center">
         <Line options={options} data={data} />
       </div>
     </div>

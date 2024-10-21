@@ -49,7 +49,7 @@ function SignUp() {
         ></input>
         <div className={`${isCorrect ? "text-black text-opacity-0" : "text-reset-red" }`}>비밀번호를 다시 확인하세요</div>
         <button
-          className="w-[300px] h-[65px] mt-[100px] text-white text-[28px] bg-MainBlue rounded-[10px]"
+          className="w-[300px] h-[65px] mt-[100px] text-white text-[28px] bg-MainBlue rounded-[10px] hover:bg-[#1063d8] drop-shadow-xl"
           type="submit"
           disabled={isDisabled}
         >

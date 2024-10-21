@@ -16,14 +16,14 @@ function StockDetailsPage() {
   return (
     <>
       <div
-        className={`w-[100%] h-full bg-Bg-gray transition-all duration-300 ${openDrawer ? 'mr-[370px]' : 'mr-[70px]'}`}
+        className={`w-full h-[100vh] bg-Bg-gray transition-all duration-300 ${openDrawer ? 'mr-[370px]' : 'mr-[70px]'}`}
       >
         <TopNavBar />
         <div className="w-full min-w-[1300px] px-[10px]">
-          <div className="w-full flex justify-center items-center">
+          <div className="w-full h-[5vh] flex justify-center items-center">
               <TopContent/>
           </div>
-          <div className="flex">
+          <div className="flex h-[80vh]">
             <div className="w-[55%]" style={boxStyles}>
               <Chart/>
             </div>

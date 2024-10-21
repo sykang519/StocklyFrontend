@@ -6,12 +6,13 @@ import DoughnutChart from '../components/myInvestContent/DoughnutChart';
 import RoiChart from '../components/myInvestContent/RoiChart';
 import BarChart from '../components/myInvestContent/BarChart';
 import MyStockList from '../components/myInvestContent/MyStockList';
+import AssetChart from '../components/myInvestContent/AssetChart';
 
 function MyInvestPage() {
   const {openDrawer} = useDrawerStore();
   return (
     <>
-      <div className={`w-[100%] full bg-Bg-gray transition-all duration-300 ${openDrawer ? 'mr-[370px]' : 'mr-[70px]' }`}>
+      <div className={`w-full bg-Bg-gray transition-all duration-300 ${openDrawer ? 'mr-[370px]' : 'mr-[70px]' }`}>
         <TopNavBar />
         <div className="flex justify-center ">
           <div className="w-[95%] min-w-[1300px] max-w-[1500px]">
@@ -21,7 +22,7 @@ function MyInvestPage() {
                 <div className="h-[48%] bg-white rounded-[15px]"> <RoiChart/> </div>
               </div>
               <div className="flex flex-col w-[39%] justify-between">
-                <div className="h-[30%] bg-white rounded-[15px]"> 3 </div>
+                <div className="h-[30%] bg-white rounded-[15px]"> <AssetChart/> </div>
                 <div className="h-[66%] bg-white rounded-[15px]"> <DoughnutChart/> </div>
               </div>
             </div>

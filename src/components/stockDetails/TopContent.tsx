@@ -40,7 +40,7 @@ function TopContent() {
     <div className="flex justify-between w-full ">
       {/* 회사 정보 추후에 get 해올 것 */}
       <div className="flex justify-center items-center">
-        <div className="text-[20px] font-bold m-10px"> 삼성 전자</div>
+        <div className="text-[20px] font-bold m-[10px]"> 삼성 전자</div>
         <div className="text-[19px] text-[#B4BDC6] m-[10px]">005930</div>
       </div>
 

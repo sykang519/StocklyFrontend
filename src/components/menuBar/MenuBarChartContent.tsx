@@ -11,7 +11,7 @@ function MenuBarChartContent() {
         <div className="p-[15px] text-[20px]">실시간</div>
       </div>
       <hr className="w-[100%] border-font-gray" />
-      <div className=" mt-[70px]">
+      <div className="mt-[70px]">
         {live_list.map((live, index) => (
           <div className="flex justify-between items-center m-[5px] hover:bg-[#e4e8ea] rounded-[10px] transition-color duration-300 ">
             <div className="m-[10px] text-[18px] flex text-chart-font">

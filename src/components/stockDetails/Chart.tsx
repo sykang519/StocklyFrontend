@@ -53,18 +53,33 @@ const Chart: React.FC = () => {
 
   const StockOptions: ChartOptions<'bar'> = {
     responsive: true,
+    maintainAspectRatio: false,
     interaction: {
       mode: 'index' as const,
       intersect: false,
     },
     animation: { duration: 0 },
+    layout: {
+      padding: {
+        left: 20,
+        right: 20,
+        top: 20,
+      },
+    },
     scales: {
       x: {
-        grid: { display: true },
+        grid: { display: true, drawTicks: true },
         display: true, // x축 표시
+        ticks: {
+          color: 'white', // x축 레이블 색상 설정
+        },
       },
       y: {
         grid: { display: true },
+        afterDataLimits: (scale) => {
+          // y의 최대값 여유롭게 설정
+          scale.max = scale.max * 1.2;
+        },
       },
     },
     plugins: {
@@ -75,13 +90,14 @@ const Chart: React.FC = () => {
         pan: {
           enabled: true,
           mode: 'x',
+          onPan: ({ chart }) => handleSync(chart),
         },
         zoom: {
           wheel: {
             enabled: true,
           },
           mode: 'x',
-          onZoom: ({ chart }) => handleZoomSync(chart),
+          onZoom: ({ chart }) => handleSync(chart),
         },
       },
     },
@@ -89,11 +105,20 @@ const Chart: React.FC = () => {
 
   const VolumeOptions: ChartOptions<'bar'> = {
     responsive: true,
+    maintainAspectRatio: false,
     interaction: {
       mode: 'index' as const,
       intersect: false,
     },
     animation: { duration: 0 },
+    layout: {
+      // 그래프 패딩
+      padding: {
+        left: 20,
+        right: 20,
+        bottom: 20,
+      },
+    },
     scales: {
       x: {
         grid: { display: true },
@@ -101,6 +126,10 @@ const Chart: React.FC = () => {
       },
       y: {
         grid: { display: true },
+        afterDataLimits: (scale) => {
+          // y의 최대값 여유롭게 설정
+          scale.max = scale.max * 1.2;
+        },
       },
     },
     plugins: {
@@ -111,19 +140,20 @@ const Chart: React.FC = () => {
         pan: {
           enabled: true,
           mode: 'x',
+          onPan: ({ chart }) => handleSync(chart),
         },
         zoom: {
           wheel: {
             enabled: true,
           },
           mode: 'x',
-          onZoom: ({ chart }) => handleZoomSync(chart),
+          onZoom: ({ chart }) => handleSync(chart),
         },
       },
     },
   };
 
-  const handleZoomSync = (chart: ChartJS) => {
+  const handleSync = (chart: ChartJS) => {
     const stockChart = stockChartRef.current;
     const volumeChart = volumeChartRef.current;
 
@@ -139,7 +169,7 @@ const Chart: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="w-full h-full flex flex-col justify-center items-center">
       <div className="w-full flex justify-between items-center">
         <p className="ml-[20px] text-[20px]">차트</p>
         <div>
@@ -158,7 +188,9 @@ const Chart: React.FC = () => {
           <button
             className={`w-[35px] h-[35px] mx-[5px] my-[10px] rounded-[7px] transition-colors duration-300 ease-in-out ${filter === 'month' ? 'bg-gray' : 'bg-transparent'}`}
             onClick={() => setFilter('month')}
-          ></button>
+          >
+            월
+          </button>
           <button
             className={`w-[35px] h-[35px] mx-[5px] my-[10px] rounded-[7px] transition-colors duration-300 ease-in-out ${filter === 'year' ? 'bg-gray' : 'bg-transparent'}`}
             onClick={() => setFilter('year')}
@@ -168,15 +200,15 @@ const Chart: React.FC = () => {
         </div>
         <div></div>
       </div>
-      <div className="flex flex-col justify-center items-center w-full">
-        <div className=" w-full h-[60%]">
-          <Bar ref={stockChartRef} options={StockOptions} data={StockData} />
+      <div className="flex flex-col justify-center items-center w-full flex-grow">
+        <div className="w-full h-[60%]">
+          <Bar ref={stockChartRef} options={StockOptions} data={StockData} className="h-full" />
         </div>
         <div className="w-full h-[40%]">
-          <Bar ref={volumeChartRef} options={VolumeOptions} data={VolumeData} />
+          <Bar ref={volumeChartRef} options={VolumeOptions} data={VolumeData} className="h-full" />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

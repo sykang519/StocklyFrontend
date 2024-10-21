@@ -7,7 +7,7 @@ const data = {
   labels: ['삼성전자', '카카오', '네이버', '삼성SDI'],
   datasets: [
     {
-      label: 'My First Dataset',
+      label: '주식 수',
       data: [1000000, 200000, 50000, 300000],
       backgroundColor: [
         'rgba(255, 99, 132, 1)',
@@ -21,14 +21,20 @@ const data = {
 };
 
 const options = {
-  // 옵션 (1) : 부모 크기에 맞춰 차트 반응형
   responsive: true,
-  // 옵션 (2) : 차트에 커서 갖다대면 뜨는거
+  maintainAspectRatio: false,
   interaction: {
     mode: 'index' as const,
     intersect: false,
   },
-  // 옵션 (3) : 척도
+  layout:{
+    padding:{
+      left: 20,
+      right: 20,
+      top: 20,
+      bottom: 20
+    }
+  },
   scales: {
     x: {
       display: false, // x축
@@ -49,8 +55,8 @@ function DoughnutChart() {
   return (
     <div className="w-full h-full flex flex-col  items-center">
       <div className="w-full text-[23px] p-[20px]">보유 종목</div>
-      <div className="w-[80%] content-center">
-        <Doughnut data={data} options={options}/>
+      <div className="w-[80%] flex-grow flex justify-center items-center">
+        <Doughnut data={data} options={options} className="h-full"/>
       </div>
     </div>
   );

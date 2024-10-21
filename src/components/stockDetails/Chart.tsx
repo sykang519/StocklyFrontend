@@ -2,6 +2,7 @@ import { Bar } from 'react-chartjs-2';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { useRef } from 'react';
+import { ChartOptions } from 'chart.js';
 
 import { useState } from 'react';
 
@@ -10,8 +11,8 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend,
 const Chart: React.FC = () => {
   const [filter, setFilter] = useState('day');
   // day, week, month, year
-  const stockChartRef = useRef(null); // 주식 차트 참조
-  const volumeChartRef = useRef(null); // 거래량 차트 참조
+  const stockChartRef = useRef<ChartJS<'bar', number[][], unknown> | null>(null);
+  const volumeChartRef = useRef<ChartJS<'bar', number[], unknown> | null>(null);
 
   const stockprice = [
     [13, 15],
@@ -50,15 +51,13 @@ const Chart: React.FC = () => {
     ],
   };
 
-  const StockOptions = {
-    type: 'bar',
+  const StockOptions: ChartOptions<'bar'> = {
     responsive: true,
     interaction: {
       mode: 'index' as const,
       intersect: false,
     },
     animation: { duration: 0 },
-    hover: { animationDuration: 0 },
     scales: {
       x: {
         grid: { display: true },
@@ -82,21 +81,19 @@ const Chart: React.FC = () => {
             enabled: true,
           },
           mode: 'x',
-          onZoom: ({ chart }: { chart: ChartJS }) => handleZoomSync(chart),
+          onZoom: ({ chart }) => handleZoomSync(chart),
         },
       },
     },
   };
 
-  const VolumeOptions = {
-    type: 'bar',
+  const VolumeOptions: ChartOptions<'bar'> = {
     responsive: true,
     interaction: {
       mode: 'index' as const,
       intersect: false,
     },
     animation: { duration: 0 },
-    hover: { animationDuration: 0 },
     scales: {
       x: {
         grid: { display: true },
@@ -120,7 +117,7 @@ const Chart: React.FC = () => {
             enabled: true,
           },
           mode: 'x',
-          onZoom: ({ chart }: { chart: ChartJS }) => handleZoomSync(chart),
+          onZoom: ({ chart }) => handleZoomSync(chart),
         },
       },
     },
@@ -132,10 +129,10 @@ const Chart: React.FC = () => {
 
     if (stockChart && volumeChart) {
       const xAxis = chart.scales.x;
-      stockChart.options.scales.x.min = xAxis.min;
-      stockChart.options.scales.x.max = xAxis.max;
-      volumeChart.options.scales.x.min = xAxis.min;
-      volumeChart.options.scales.x.max = xAxis.max;
+      stockChart.options.scales!.x!.min = xAxis.min;
+      stockChart.options.scales!.x!.max = xAxis.max;
+      volumeChart.options.scales!.x!.min = xAxis.min;
+      volumeChart.options.scales!.x!.max = xAxis.max;
       stockChart.update();
       volumeChart.update();
     }
@@ -161,9 +158,7 @@ const Chart: React.FC = () => {
           <button
             className={`w-[35px] h-[35px] mx-[5px] my-[10px] rounded-[7px] transition-colors duration-300 ease-in-out ${filter === 'month' ? 'bg-gray' : 'bg-transparent'}`}
             onClick={() => setFilter('month')}
-          >
-            윌
-          </button>
+          ></button>
           <button
             className={`w-[35px] h-[35px] mx-[5px] my-[10px] rounded-[7px] transition-colors duration-300 ease-in-out ${filter === 'year' ? 'bg-gray' : 'bg-transparent'}`}
             onClick={() => setFilter('year')}

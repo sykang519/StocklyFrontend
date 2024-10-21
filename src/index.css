@@ -13,13 +13,11 @@ body{
     font-family: "Pretendard";
 }
 
-/* Hide scrollbar for all browsers */
-.no-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge, and Opera */
+*:-webkit-scrollbar {
+  display: none;
 }
 
-.no-scrollbar {
-  -ms-overflow-style: none;  /* Internet Explorer and Edge */
-  scrollbar-width: none;  /* Firefox */
+* {
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
 }
-

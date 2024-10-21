@@ -86,7 +86,7 @@ function StockChart() {
           <th className="text-right w-[20%] py-[10px] text-chart-font px-1">거래량</th>
         </tr>
         {currentData.map((data, index) => (
-          <tr key={startIndex + index}>
+          <tr key={startIndex + index} className="rounded-[5px] hover:bg-Bg-gray cursor-pointer">
             <td className="text-left flex py-[10px] text-chart-font px-1 text-[18px]">
               <p className="text-MainBlue mr-10 font-bold text-[19px]">{startIndex + index + 1}</p> {data.company_name}
             </td>

@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion';
 import { FaAnglesUp } from 'react-icons/fa6';
 
-function OnBoarding4() {
-  const moveToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+interface OnBoarding4Props {
+  gotoTop: () => void;
+}
+
+function OnBoarding4({ gotoTop }: OnBoarding4Props) {
+
   return (
     <div className="w-full h-[100vh] flex flex-col justify-center items-center">
       <motion.div
@@ -13,14 +15,14 @@ function OnBoarding4() {
         viewport={{ once: false }} // 애니메이션 최초 한 번만 실행할건지
         transition={{
           ease: 'easeInOut',
-          duration: 3,
+          duration: 2,
           y: { duration: 1 },
         }}
       >
         <div className="flex flex-col">
           <div className=" flex justify-center items-center">
             <div className="border">주식차트 들어갈 예정~</div>
-            <div className="flex flex-col jsutify-center items-start m-[50px]">
+            <div className="flex flex-col justify-center items-start m-[50px]">
               <div className="text-[60px] font-bold">한눈에 보이는 차트</div>
               <div className="text-[30px] text-[#aaaaaa]">
                 복잡하고 어려운 주식 차트
@@ -29,7 +31,7 @@ function OnBoarding4() {
               </div>
             </div>
           </div>
-          <button className="flex justify-center items-center m-[50px]" onClick={moveToTop}>
+          <button className="flex justify-center items-center m-[50px]" onClick={gotoTop}>
             <FaAnglesUp className="w-[40px] h-[40px] m-[10px]" /> <p className="text-[40px]">시작하기</p>
           </button>
         </div>

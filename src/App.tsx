@@ -22,7 +22,7 @@ function App() {
       </Routes>
 
       {showMenuBar && (
-        <div className="w-[300px] fixed right-0 top-0 h-full">
+        <div className="w-[70px] fixed right-0 top-0 h-full">
           <MenuBar />
         </div>
       )}

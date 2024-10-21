@@ -5,6 +5,7 @@ import MenuBar from './components/menuBar/MenuBar';
 import MyInvest from './pages/MyInvestPage';
 import StockDetailsPage from './pages/StockDetailsPage';
 import OnBoardingPage from './pages/OnBoardingPage';
+import Test from './pages/Test';
 
 function App() {
   const location = useLocation();
@@ -14,6 +15,7 @@ function App() {
   return (
     <div className="flex">
       <Routes>
+      <Route path="/test" element={<Test />} />
         <Route path="/" element={<OnBoardingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/main" element={<MainPage />} />

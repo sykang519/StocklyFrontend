@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, zoomPlugin);
 
-function StockDetailsPage() {
+const Chart: React.FC = () => {
   const [filter, setFilter] = useState('day');
   // day, week, month, year
   const stockChartRef = useRef(null); // 주식 차트 참조
@@ -28,7 +28,6 @@ function StockDetailsPage() {
   const trading_volume = [3, 4, 5, 3, 4, 2, 6, 8, 9, 10];
   const labels = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월'];
 
-  
   const StockData = {
     labels: labels,
     datasets: [
@@ -83,7 +82,7 @@ function StockDetailsPage() {
             enabled: true,
           },
           mode: 'x',
-          onZoom: ({ chart }: any) => handleZoomSync(chart),
+          onZoom: ({ chart }: { chart: ChartJS }) => handleZoomSync(chart),
         },
       },
     },
@@ -121,13 +120,13 @@ function StockDetailsPage() {
             enabled: true,
           },
           mode: 'x',
-          onZoom: ({ chart }: any) => handleZoomSync(chart),
+          onZoom: ({ chart }: { chart: ChartJS }) => handleZoomSync(chart),
         },
       },
     },
   };
 
-  const handleZoomSync = (chart: any) => {
+  const handleZoomSync = (chart: ChartJS) => {
     const stockChart = stockChartRef.current;
     const volumeChart = volumeChartRef.current;
 
@@ -144,7 +143,7 @@ function StockDetailsPage() {
 
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="w-full flex justify-between items-center">
         <p className="ml-[20px] text-[20px]">차트</p>
         <div>
           <button
@@ -174,12 +173,16 @@ function StockDetailsPage() {
         </div>
         <div></div>
       </div>
-      <div className="flex flex-col justify-center items-center w-full h-full">
-        <Bar ref={stockChartRef} options={StockOptions} data={StockData} />
-        <Bar ref={volumeChartRef} options={VolumeOptions} data={VolumeData} />
+      <div className="flex flex-col justify-center items-center w-full">
+        <div className=" w-full h-[60%]">
+          <Bar ref={stockChartRef} options={StockOptions} data={StockData} />
+        </div>
+        <div className="w-full h-[40%]">
+          <Bar ref={volumeChartRef} options={VolumeOptions} data={VolumeData} />
+        </div>
       </div>
     </>
   );
-}
+};
 
-export default StockDetailsPage;
+export default Chart;

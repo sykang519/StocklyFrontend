@@ -6,7 +6,6 @@ import Chart from '../components/stockDetails/Chart';
 import Price from '../components/stockDetails/Price';
 
 const boxStyles = {
-  height: '800px',
   backgroundColor: '#ffffff',
   margin: '10px',
   borderRadius: '15px',

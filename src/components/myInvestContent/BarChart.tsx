@@ -23,6 +23,7 @@ const data = {
 const options = {
     type: 'bar',
     data: data,
+    maintainAspectRatio: false,
     responsive: true,
     interaction: {
       mode: 'index' as const,
@@ -48,8 +49,8 @@ function BarChart() {
   return (
     <div className="w-full h-full flex flex-col items-center">
       <div className="w-full text-[23px] p-[20px]">계좌 변동 한 눈에 보기</div>
-      <div className="w-[80%] flex justify-center items-center">
-      <Bar options={options} data={data} />
+      <div className="w-full flex justify-center items-center">
+      <Bar options={options} data={data} style={{width:"70%"}} />
       </div>
     </div>
   );

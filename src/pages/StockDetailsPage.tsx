@@ -2,7 +2,7 @@ import TopNavBar from '../components/TopNavBar';
 import Order from '../components/orderContents/Order';
 import useDrawerStore from '../zustand/MenuBarStore';
 import TopContent from '../components/stockDetails/TopContent';
-import Chart from '../components/stockDetails/Chart';
+import ChartContainer from '../components/stockDetails/ChartContainer';
 import Price from '../components/stockDetails/Price';
 
 const boxStyles = {
@@ -21,16 +21,16 @@ function StockDetailsPage() {
         <TopNavBar />
         <div className="w-full min-w-[1300px] px-[10px]">
           <div className="w-full h-[5vh] flex justify-center items-center">
-              <TopContent/>
+            <TopContent />
           </div>
           <div className="flex h-[80vh]">
-            <div className="w-[55%]" style={boxStyles}>
-              <Chart/>
+            <div className="w-[55%] h-full" style={boxStyles}>
+              <ChartContainer />
             </div>
-            <div className="w-[25%]" style={boxStyles}>
-              <Price/>
+            <div className="w-[25%] h-full" style={boxStyles}>
+              <Price />
             </div>
-            <div className="w-[20%]" style={boxStyles}>
+            <div className="w-[20%] h-full" style={boxStyles}>
               <Order />
             </div>
           </div>

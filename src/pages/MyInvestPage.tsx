@@ -13,7 +13,8 @@ function MyInvestPage() {
   return (
     <>
       <div className={`w-full bg-Bg-gray transition-all duration-300 ${openDrawer ? 'mr-[370px]' : 'mr-[70px]' }`}>
-        <TopNavBar />
+        <TopNavBar color={"gray"}/>
+        <div className="w-full h-[50px]"></div>
         <div className="flex justify-center ">
           <div className="w-[95%] min-w-[1300px] max-w-[1500px]">
             <div className="flex justify-between h-[850px] my-[30px]">

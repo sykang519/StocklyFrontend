@@ -18,7 +18,7 @@ function StockDetailsPage() {
       <div
         className={`w-full h-[100vh] bg-Bg-gray transition-all duration-300 ${openDrawer ? 'mr-[370px]' : 'mr-[70px]'}`}
       >
-        <TopNavBar />
+        <TopNavBar color={"gray"}/>
         <div className="w-full min-w-[1300px] px-[10px]">
           <div className="w-full h-[5vh] flex justify-center items-center">
             <TopContent />

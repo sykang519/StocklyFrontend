@@ -98,8 +98,15 @@ const ApexChart: React.FC = () => {
   const volumeData = data.map((price) => ({
     x: price.date,
     y: price.volume,
-    color: price.close > price.open ? 'rgba(255, 26, 26, 1)' : 'rgba(48, 18, 247, 1)'
+    color: price.close > price.open ? 'rgba(255, 26, 26, 1)' : 'rgba(48, 18, 247, 1)',
   }));
+
+  // 이동평균선 데이터를 계산 (여기서는 간단하게 close 값의 평균을 이동평균선으로 사용)
+  const movingAverageData = data.map((price, index, arr) => {
+    const sum = arr.slice(Math.max(0, index - 2), index + 1).reduce((acc, curr) => acc + curr.close, 0);
+    const avg = sum / Math.min(index + 1, 3); // 간단한 3일 이동평균
+    return { x: price.date, y: avg };
+  });
 
   interface ChartContext {
     w: {
@@ -110,22 +117,23 @@ const ApexChart: React.FC = () => {
     };
   }
 
-
   const handleSync = (chartContext: ChartContext) => {
-    console.log(chartContext)
+    console.log(chartContext);
     const newMin = chartContext.w.globals.minX;
     const newMax = chartContext.w.globals.maxX;
 
     setXaxisRange({ min: newMin, max: newMax });
   };
 
-
   return (
     <div className="w-full h-[74vh] flex flex-col justify-center items-center">
       <div id="chart-candlestick" className="w-full h-[48vh]">
         <ApexCharts
           type="candlestick"
-          series={[{ data: candlestickData }]}
+          series={[
+            { name: '주가', data: candlestickData },
+            { name: '이동평균선', type: 'line', data: movingAverageData },
+          ]}
           height="100%"
           options={{
             theme: {
@@ -188,7 +196,7 @@ const ApexChart: React.FC = () => {
       <div id="chart-bar" className="w-full h-[26vh]">
         <ApexCharts
           type="bar"
-          series={[{ name: 'Volume', data: volumeData}]}
+          series={[{ name: 'Volume', data: volumeData }]}
           height="100%"
           options={{
             chart: {
@@ -209,11 +217,11 @@ const ApexChart: React.FC = () => {
               },
             },
             dataLabels: {
-              enabled: false
+              enabled: false,
             },
             colors: volumeData.map((data) => data.color), // 색상 배열 적용
             legend: {
-              show: false
+              show: false,
             },
             xaxis: {
               type: 'datetime',
@@ -233,7 +241,6 @@ const ApexChart: React.FC = () => {
               opposite: true,
               show: false,
               min: 0,
-
             },
             tooltip: {
               y: {

@@ -40,6 +40,10 @@ function TopNavBar({ color }: TopNavBarProps) {
     navigate('/myinvest');
   };
 
+  const goToSetting = () => {
+    navigate('/setting');
+  }
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -116,7 +120,7 @@ function TopNavBar({ color }: TopNavBarProps) {
           }}
         >
           <MenuItem onClick={handleClose}>로그아웃</MenuItem>
-          <MenuItem onClick={handleClose}>회원 탈퇴</MenuItem>
+          <MenuItem onClick={()=>{handleClose(); goToSetting();}}>설정</MenuItem>
         </Menu>
       </div>
     </>

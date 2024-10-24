@@ -1,12 +1,11 @@
 import TopNavBar from '../components/TopNavBar';
-import Charge from '../components/myInvestContent/Charge';
-import Reset from '../components/myInvestContent/Reset';
 import useDrawerStore from '../zustand/MenuBarStore';
 import DoughnutChart from '../components/myInvestContent/DoughnutChart';
 import RoiChart from '../components/myInvestContent/RoiChart';
 import BarChart from '../components/myInvestContent/BarChart';
 import MyStockList from '../components/myInvestContent/MyStockList';
 import AssetChart from '../components/myInvestContent/AssetChart';
+import MyOrderList from '../components/myInvestContent/MyOrderList'
 
 function MyInvestPage() {
   const {openDrawer} = useDrawerStore();
@@ -27,9 +26,8 @@ function MyInvestPage() {
                 <div className="h-[66%] bg-white rounded-[15px]"> <DoughnutChart/> </div>
               </div>
             </div>
-            <div className="flex justify-between h-[670px] my-[30px]">
-              <div className="w-[32%] bg-white rounded-[15px]"> <Charge/> </div>
-              <div className="w-[32%] bg-white rounded-[15px]"> <Reset/> </div>
+            <div className="flex justify-between h-[600px] my-[30px]">
+            <div className="w-[66%] bg-white rounded-[15px] overflow-auto"> <MyOrderList/> </div>
               <div className="w-[32%] bg-white rounded-[15px] overflow-auto"> <MyStockList/> </div>
             </div>
           </div>

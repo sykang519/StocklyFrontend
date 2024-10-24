@@ -15,7 +15,7 @@ function MyStockList() {
   ];
   return (
     <div className="w-full flex flex-col justify-start items-center">
-      <div className="w-full h-[70px] text-[25px] p-[20px] sticky top-0 bg-white">전체 보유 주식</div>
+      <div className="w-full h-[70px] text-[25px] p-[20px] sticky top-0 bg-white">내 보유 주식</div>
       <div className="w-[85%] flex flex-col justify-center items-center overflow-scroll">
         {stocks.map((stock) => (
           <div className=" w-full flex flex-col border-gray justify-between m-[5px]">

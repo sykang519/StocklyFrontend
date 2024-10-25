@@ -19,6 +19,7 @@ const style = {
   boxShadow: 10,
   borderRadius: '20px',
   p: 4,
+  outline:"none"
 };
 
 interface TopNavBarProps {

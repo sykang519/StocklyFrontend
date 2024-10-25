@@ -26,12 +26,12 @@ function SettingPage() {
               <div className="text-[22px] w-[25%] my-[10px]">| 내 정보</div>
               <div className="w-full m-[10px]">
                 <div className="flex w-full mb-[20px]">
-                  <div className="w-[20%] text-[20px] text-[#7b7b7bec]">이름</div>
-                  <div className="text-[20px]">강서영</div>
+                  <div className="w-[20%] text-[19px] text-[#7b7b7bec]">이름</div>
+                  <div className="text-[19px]">강서영</div>
                 </div>
                 <div className="flex w-full my-[20px]">
-                  <div className="w-[20%] text-[20px] text-[#7b7b7bec] ">이메일</div>
-                  <div className="text-[20px]">aaa@gmail.com</div>
+                  <div className="w-[20%] text-[19px] text-[#7b7b7bec] ">이메일</div>
+                  <div className="text-[19px]">aaa@gmail.com</div>
                 </div>
               </div>
             </div>
@@ -41,12 +41,12 @@ function SettingPage() {
               <div className="text-[22px] w-[25%]">| 내 계좌 관리</div>
               <div className="w-full">
                 <div className="flex my-[20px]">
-                  <div className="w-[20%] text-[20px] text-[#7b7b7bec] ">계좌 충전</div>
+                  <div className="w-[20%] text-[19px] text-[#7b7b7bec] ">계좌 충전</div>
                   <Charge />
                 </div>
                 <div className="w-full h-[80px]"></div>
                 <div className="flex my-[20px]">
-                  <div className="w-[20%] text-[20px] text-[#7b7b7bec]">투자 기록 초기화</div>
+                  <div className="w-[20%] text-[19px] text-[#7b7b7bec]">투자 기록 초기화</div>
                   <Reset />
                 </div>
               </div>

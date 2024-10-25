@@ -189,6 +189,10 @@ const ApexChart: React.FC = () => {
                 formatter: (v) => `$ ${v.toFixed(2)}`,
               },
             },
+            legend: {
+              show: true,
+              position: "top"
+            }
           }}
         />
       </div>

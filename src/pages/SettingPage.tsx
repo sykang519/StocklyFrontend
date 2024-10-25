@@ -19,6 +19,7 @@ function SettingPage() {
               <IoSettingsSharp />
               <p className="m-[10px] font-bold">설정</p>
             </div>
+            <hr className="w-[100%] border-font-gray  m-[20px]" />
             <div className="w-full h-[30px]"></div>
             {/* 내 정보 */}
             <div className="w-full flex items-start m-[20px] my-[30px]">

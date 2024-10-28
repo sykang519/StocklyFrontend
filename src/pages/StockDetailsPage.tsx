@@ -3,7 +3,7 @@ import Order from '../components/orderContents/Order';
 import useDrawerStore from '../zustand/MenuBarStore';
 import TopContent from '../components/stockDetails/TopContent';
 import ChartContainer from '../components/stockDetails/ChartContainer';
-import OrderPrice from '../components/stockDetails/OrderPrice';
+import OrderPrice from '../components/stockDetails/OrderBook';
 
 const boxStyles = {
   backgroundColor: '#ffffff',

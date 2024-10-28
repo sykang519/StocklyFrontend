@@ -5,6 +5,7 @@ import MenuBar from './components/menuBar/MenuBar';
 import MyInvest from './pages/MyInvestPage';
 import StockDetailsPage from './pages/StockDetailsPage';
 import OnBoardingPage from './pages/OnBoardingPage';
+import SettingPage from './pages/SettingPage';
 
 function App() {
   const location = useLocation();
@@ -19,6 +20,7 @@ function App() {
         <Route path="/main" element={<MainPage />} />
         <Route path="/myinvest" element={<MyInvest />} />
         <Route path="/details" element={<StockDetailsPage />} />
+        <Route path="/setting" element={<SettingPage />} />
       </Routes>
 
       {showMenuBar && (

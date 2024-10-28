@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { GrFormNext } from "react-icons/gr";
 import { GrFormPrevious } from "react-icons/gr";
+import {useNavigate} from 'react-router-dom';
 
 function StockChart() {
   const datas = [
@@ -27,11 +28,219 @@ function StockChart() {
       fluctuation_rate: 2.3,
       amount: 10000,
       volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: 5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: 5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: 5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: 5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },{
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: 5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: 5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: 5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: 5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
+    },
+    {
+      company_name: '삼성전자',
+      price: 60000,
+      fluctuation_price: -5300,
+      fluctuation_rate: 2.3,
+      amount: 10000,
+      volume: 1234,
     }
   ];
 
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 20; // 한 페이지에 표시할 데이터 수
+  const itemsPerPage = 10; // 한 페이지에 표시할 데이터 수
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentData = datas.slice(startIndex, startIndex + itemsPerPage);
@@ -53,6 +262,10 @@ function StockChart() {
   const handlePageClick = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
+
+  const gotoStockDetails = () => {
+    navigate('/details');
+  }
 
   // 페이지 버튼 생성
   const renderPageNumbers = () => {
@@ -86,7 +299,7 @@ function StockChart() {
           <th className="text-right w-[20%] py-[10px] text-chart-font px-1">거래량</th>
         </tr>
         {currentData.map((data, index) => (
-          <tr key={startIndex + index} className="rounded-[5px] hover:bg-Bg-gray cursor-pointer">
+          <tr key={startIndex + index} className="rounded-[5px] hover:bg-Bg-gray cursor-pointer" onClick={gotoStockDetails}>
             <td className="text-left flex py-[10px] text-chart-font px-1 text-[18px]">
               <p className="text-MainBlue mr-10 font-bold text-[19px]">{startIndex + index + 1}</p> {data.company_name}
             </td>

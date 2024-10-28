@@ -24,9 +24,9 @@ function TopContent() {
     setAnchorEl(null);
   };
 
-  const handleLike = () =>{
+  const handleLike = () => {
     setIsLike(!isLike);
-  }
+  };
 
   useEffect(() => {
     if (Number(price) > 0 && price[0] !== '0') {
@@ -40,22 +40,43 @@ function TopContent() {
     <div className="flex justify-between w-full ">
       {/* 회사 정보 추후에 get 해올 것 */}
       <div className="flex justify-center items-center">
-        <div className="text-[20px] font-bold m-10px"> 삼성 전자</div>
-        <div className="text-[19px] text-[#B4BDC6] m-[10px]">005930</div>
+        <div className="text-[20px] font-bold m-[10px]"> 삼성 전자</div>
+        <div className="text-[19px] text-font-gray m-[10px]">005930</div>
       </div>
-
       <div className="flex">
+        {/* <div className="flex p-[10px]">
+          <div className="w-[80px] border-l border-font-gray px-[7px] m-[10px]">
+            <div className="text-[15px] text-[#808080]">시가총액</div>
+            <div className="text-[15px] text-[#808080]">3691억원</div>
+          </div>
+          <div className="w-[80px] border-l border-font-gray px-[7px] m-[10px]">
+            <div className="text-[15px] text-[#808080]">1일 최저</div>
+            <div className="text-[15px] text-[#808080]">3691억원</div>
+          </div>
+          <div className="w-[80px] border-l border-font-gray px-[7px] m-[10px]">
+            <div className="text-[15px] text-[#808080]">1일 최고</div>
+            <div className="text-[15px] text-[#808080]">3691억원</div>
+          </div>
+          <div className="w-[80px] border-l border-font-gray px-[7px] m-[10px]">
+            <div className="text-[15px] text-[#808080]">1년 최저</div>
+            <div className="text-[15px] text-[#808080]">3691억원</div>
+          </div>
+          <div className="w-[80px] border-l border-font-gray px-[7px] m-[10px]">
+            <div className="text-[15px] text-[#808080]">1년 최고</div>
+            <div className="text-[15px] text-[#808080]">3691억원</div>
+          </div>
+        </div> */}
         <button
           onClick={handleClick}
           id="basic-button"
           aria-haspopup="true"
           aria-controls={open ? 'basic-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
-          className="mx-[10px]"
+          className="mx-[5px]"
         >
           <img
             src={alertSrc}
-            className="cursor-pointer w-full h-full w-[48.5px] h-[48.5px] mr-[10px]"
+            className="cursor-pointer w-full h-full "
             alt="알림"
             onMouseEnter={() => setAlertSrc(alert_hover)} // hover 상태일 때
             onMouseLeave={() => setAlertSrc(alert)} // 기본 상태로 복귀
@@ -108,16 +129,15 @@ function TopContent() {
             </div>
           </div>
         </Menu>
-        <div>
+        <button className="mx-[5px]" onClick={handleLike}>
           <img
             src={likeSrc}
-            className="mr-[30px] cursor-pointer w-[48.5px] h-[48.5px]"
+            className="cursor-pointer w-full h-full "
             alt="좋아요"
             onMouseEnter={() => setLikeSrc(isLike ? like2_hover : like2_hover)} // hover 상태일 때
             onMouseLeave={() => setLikeSrc(isLike ? like2 : like)} // 기본 상태로 복귀
-            onClick={handleLike}
           />
-        </div>
+        </button>
       </div>
     </div>
   );

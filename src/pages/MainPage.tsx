@@ -6,7 +6,7 @@ function MainPage() {
   const { openDrawer } = useDrawerStore();
   return (
     <>
-      <div className={`w-[100%] h-[100vh] transition-all duration-300 ${openDrawer ? 'mr-[370px]' : 'mr-[70px]'}`}>
+      <div className={`w-[100%] h-[100vh] transition-all duration-300 ${openDrawer ? 'mr-[325px]' : 'mr-[65px]'}`}>
         <TopNavBar color={"white"}/>
         <div className="w-full h-[50px]"></div>
         <div className="flex justify-center ">

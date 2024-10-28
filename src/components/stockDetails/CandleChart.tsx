@@ -123,46 +123,6 @@ const data = [
     close: 134.8993,
     volume: 18,
   },
-  {
-    date: '2021-02-02 13:45:00',
-    open: 135.76,
-    low: 135.2338,
-    high: 135.96,
-    close: 135.2338,
-    volume: 15,
-  },
-  {
-    date: '2021-02-02 13:46:00',
-    open: 135.2338,
-    low: 134.94,
-    high: 135.2593,
-    close: 135.0108,
-    volume: 5,
-  },
-  {
-    date: '2021-02-02 13:47:00',
-    open: 135.2338,
-    low: 134.94,
-    high: 135.2593,
-    close: 135.25,
-    volume: 5,
-  },
-  {
-    date: '2021-02-02 13:48:00',
-    open: 135.25,
-    low: 135.14,
-    high: 135.4692,
-    close: 135.4,
-    volume: 7,
-  },
-  {
-    date: '2021-02-02 13:49:00',
-    open: 135.2338,
-    low: 134.8593,
-    high: 135.2338,
-    close: 134.8993,
-    volume: 18,
-  },
 ];
 
 const ApexChart: React.FC = () => {
@@ -271,9 +231,46 @@ const ApexChart: React.FC = () => {
               tooltip: {
                 enabled: true,
               },
+              labels: {
+                maxWidth: 50,
+                minWidth: 50
+              }
             },
             tooltip: {
-              shared: true,
+              custom: function ({ seriesIndex, dataPointIndex, w }) {
+                const o = w.globals.seriesCandleO[seriesIndex][dataPointIndex]
+                const h = w.globals.seriesCandleH[seriesIndex][dataPointIndex]
+                const l = w.globals.seriesCandleL[seriesIndex][dataPointIndex]
+                const c = w.globals.seriesCandleC[seriesIndex][dataPointIndex]
+                const ema = w.globals.series[seriesIndex][dataPointIndex]
+
+                if (seriesIndex === 0) {
+                  return (
+                    '<div class="apexcharts-tooltip-candlestick" style="padding:10px;">' +
+                    '<div>시가: <span class="value">' +
+                    o +
+                    ' 원</span></div>' +
+                    '<div>고가: <span class="value">' +
+                    h +
+                    ' 원</span></div>' +
+                    '<div>저가: <span class="value">' +
+                    l +
+                    ' 원</span></div>' +
+                    '<div>종가: <span class="value">' +
+                    c +
+                    ' 원</span></div>' +
+                    '</div>'
+                  )
+                }
+                else {
+                  return (
+                    '<div class="apexcharts-tooltip-candlestick" style="padding:10px;">' +
+                    '<div>이동평균: <span class="value">' +
+                    ema +
+                    ' 원</span></div>' +'</div>'
+                  )
+                }
+              }
             },
             legend: {
               show: true,
@@ -282,8 +279,8 @@ const ApexChart: React.FC = () => {
           }}
         />
       </div>
-
-      <div id="chart-bar" className="w-full h-[20vh]">
+      <hr className="border-black w-full" />
+      <div id="chart-bar" className="w-full h-[20vh] ">
         <ApexCharts
           type="bar"
           series={[{ name: 'Volume', data: volumeData }]}
@@ -340,6 +337,10 @@ const ApexChart: React.FC = () => {
               tooltip: {
                 enabled: true,
               },
+              labels: {
+                maxWidth: 50,
+                minWidth: 50
+              }
             },
             tooltip: {
               custom: function ({ series, seriesIndex, dataPointIndex }) {

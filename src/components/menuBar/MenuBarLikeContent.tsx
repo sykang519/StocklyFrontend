@@ -18,9 +18,9 @@ function MenuBarLikeContent() {
           <div className="flex justify-between items-center m-[5px] hover:bg-[#e4e8ea] rounded-[10px] transition-color duration-300 cursor-pointer">
             <div className="flex justify-center items-center m-[10px]">
               <div className="content-center cursor-pointer">
-                <IoHeart className="w-[25px] h-[25px]" />
+                <IoHeart className="w-[23px] h-[23px]" />
               </div>
-              <div className="m-[10px] text-[18px]">{like.company_name}</div>
+              <div className="m-[10px] text-[17px]">{like.company_name}</div>
             </div>
             <div className="m-[10px] text-[17px] text-[#93949bec]">{like.symbol}</div>
           </div>

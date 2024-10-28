@@ -10,7 +10,7 @@ function SettingPage() {
   const { openDrawer } = useDrawerStore();
   return (
     <>
-      <div className={`w-full transition-all duration-300 ${openDrawer ? 'mr-[370px]' : 'mr-[70px]'}`}>
+      <div className={`w-full transition-all duration-300 ${openDrawer ? 'mr-[325px]' : 'mr-[65px]'}`}>
         <TopNavBar color={'white'} />
         <div className="w-full h-[30px]"></div>
         <div className="flex justify-center">

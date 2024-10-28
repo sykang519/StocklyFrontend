@@ -13,26 +13,26 @@ function MenuBar() {
     <div className={`flex h-[100vh] fixed top-0 right-0 `}>
       <div
         className={`transition-all duration-300 bg-Bg-gray overflow-auto  ${
-          openDrawer ? 'w-[300px] border-l solid border-[#cfcfcf] ' : 'w-0'
+          openDrawer ? 'w-[260px] border-l solid border-[#cfcfcf] ' : 'w-0'
         }`}
       >
         {like && <MenuBarLikeContent /> }
         {alert && <MenuBarAlertContent/> }
         {chart && <MenuBarChartContent /> }
       </div>
-      <div className="w-[70px] bg-Bg-gray border-l solid border-[#cfcfcf] flex flex-col z-10">
+      <div className="w-[65px] bg-Bg-gray border-l solid border-[#cfcfcf] flex flex-col z-10">
         <button
           className="flex flex-col justify-center items-center m-[10px] group"
           onClick={() => handleDrawer('like')}
         >
           {like ? (
             <>
-              <IoHeart className="w-[27px] h-[27px] m-[5px] text-[#06032d]" />
+              <IoHeart className="w-[25px] h-[25px] m-[5px] text-[#06032d]" />
               <p className="text-[#06032d] text-[15px]">관심</p>
             </>
           ) : (
             <>
-              <IoHeart className="w-[27px] h-[27px] m-[5px] text-font-gray group-hover:text-[#06032d]" />
+              <IoHeart className="w-[25px] h-[25px] m-[5px] text-font-gray group-hover:text-[#06032d]" />
               <p className="text-font-gray group-hover:text-[#06032d] text-[15px]">관심</p>
             </>
           )}
@@ -44,12 +44,12 @@ function MenuBar() {
         >
           {alert ? (
             <>
-              <FaBell className="w-[27px] h-[27px] m-[5px] text-[#06032d]" />
+              <FaBell className="w-[25px] h-[25px] m-[5px] text-[#06032d]" />
               <p className="text-[#06032d] text-[15px]">알림</p>
             </>
           ) : (
             <>
-              <FaBell className="w-[27px] h-[27px] m-[5px] text-font-gray group-hover:text-[#06032d]" />
+              <FaBell className="w-[25px] h-[25px] m-[5px] text-font-gray group-hover:text-[#06032d]" />
               <p className="text-font-gray group-hover:text-[#06032d] text-[15px]">알림</p>
             </>
           )}
@@ -63,12 +63,12 @@ function MenuBar() {
         >
           {chart ? (
             <>
-              <FaRegClock className="w-[25px] h-[25px] m-[5px] text-[#06032d]" />
+              <FaRegClock className="w-[23px] h-[25px] m-[5px] text-[#06032d]" />
               <p className="text-[#06032d] text-[15px]">실시간</p>
             </>
           ) : (
             <>
-              <FaRegClock className="w-[25px] h-[25px] m-[5px] text-font-gray group-hover:text-[#06032d]" />
+              <FaRegClock className="w-[23px] h-[25px] m-[5px] text-font-gray group-hover:text-[#06032d]" />
               <p className="text-font-gray group-hover:text-[#06032d] text-[15px]">실시간</p>
             </>
           )}

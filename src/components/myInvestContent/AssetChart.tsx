@@ -83,27 +83,35 @@ function AssetChart() {
   return (
     <div className="w-full h-full flex flex-col items-center">
       <div className="w-full text-[23px] p-[20px]">내 자산</div>
+      <div className="w-full px-[25px]">
+        <div className="flex items-center justify-between">
+          <div className="text-[15px]">총자산</div><div className="text-[25px]"> 8,042,404원</div>
+        </div>
+        <div className="flex items-center justify-between">
+          <div className="text-[15px]">투자수익 (수익률)</div><div className="text-[20px] text-down">-600,000원(-7.03%)</div>
+        </div>
+      </div>
       <div className="w-full flex-grow flex flex-col justify-around items-center p-[20px]">
         <div className="flex justify-between items-center w-full h-[33px]">
           <div className="w-[10%] text-center">총자산</div>
           <div className="w-[70%]">
             <Bar options={options} data={data1} />
           </div>
-          <div className="w-[20%] text-center bg-[#d0e2fc] rounded-[5px]">₩ 55,555</div>
+          <div className="w-[20%] text-center bg-[#d0e2fc] rounded-[5px]">₩ 8,042,404</div>
         </div>
         <div className="flex justify-between items-center w-full h-[33px]">
           <div className="w-[10%] text-center">주식</div>
           <div className="w-[70%]">
             <Bar options={options} data={data2} />
           </div>
-          <div className="w-[20%] text-center bg-[#d0e2fc] rounded-[5px]">₩ 55,555</div>
+          <div className="w-[20%] text-center bg-[#d0e2fc] rounded-[5px]">₩ 7,000,000</div>
         </div>
         <div className="flex justify-between items-center w-full h-[33px]">
           <div className="w-[10%] text-center">예수금</div>
           <div className="w-[70%]">
             <Bar options={options} data={data3} />
           </div>
-          <div className="w-[20%] text-center bg-[#d0e2fc] rounded-[5px]">₩ 55,555</div>
+          <div className="w-[20%] text-center bg-[#d0e2fc] rounded-[5px]">₩ 1,042,404</div>
         </div>
       </div>
     </div>

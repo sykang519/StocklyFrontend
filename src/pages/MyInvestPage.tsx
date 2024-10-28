@@ -11,7 +11,7 @@ function MyInvestPage() {
   const {openDrawer} = useDrawerStore();
   return (
     <>
-      <div className={`w-full bg-Bg-gray transition-all duration-300 ${openDrawer ? 'mr-[370px]' : 'mr-[70px]' }`}>
+      <div className={`w-full bg-Bg-gray transition-all duration-300 ${openDrawer ? 'mr-[325px]' : 'mr-[65px]' }`}>
         <TopNavBar color={"gray"}/>
         <div className="w-full h-[50px]"></div>
         <div className="flex justify-center ">
@@ -22,8 +22,8 @@ function MyInvestPage() {
                 <div className="h-[48%] bg-white rounded-[15px]"> <RoiChart/> </div>
               </div>
               <div className="flex flex-col w-[39%] justify-between">
-                <div className="h-[30%] bg-white rounded-[15px]"> <AssetChart/> </div>
-                <div className="h-[66%] bg-white rounded-[15px]"> <DoughnutChart/> </div>
+                <div className="h-[45%] bg-white rounded-[15px]"> <AssetChart/> </div>
+                <div className="h-[51%] bg-white rounded-[15px]"> <DoughnutChart/> </div>
               </div>
             </div>
             <div className="flex justify-between h-[600px] my-[30px]">

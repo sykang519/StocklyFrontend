@@ -3,7 +3,7 @@ import Order from '../components/orderContents/Order';
 import useDrawerStore from '../zustand/MenuBarStore';
 import TopContent from '../components/stockDetails/TopContent';
 import ChartContainer from '../components/stockDetails/ChartContainer';
-import OrderPrice from '../components/stockDetails/OrderPrice';
+import OrderPrice from '../components/stockDetails/OrderBook';
 
 const boxStyles = {
   backgroundColor: '#ffffff',
@@ -16,7 +16,7 @@ function StockDetailsPage() {
   return (
     <>
       <div
-        className={`w-full h-[100vh] bg-Bg-gray transition-all duration-300 ${openDrawer ? 'mr-[370px]' : 'mr-[70px]'}`}
+        className={`w-full h-[100vh] bg-Bg-gray transition-all duration-300 ${openDrawer ? 'mr-[325px]' : 'mr-[65px]'}`}
       >
         <TopNavBar color={"gray"}/>
         <div className="w-full h-[30px]"></div>

@@ -45,9 +45,9 @@ function MenuBarLikeContent() {
         <div className="mt-[70px]">
           {alert_list.map((like) => (
             <div className="flex justify-between items-center m-[5px] hover:bg-[#e4e8ea] rounded-[10px] transition-color duration-300 cursor-pointer">
-              <div className="mx-[15px] text-[18px] text-chart-font">{like.company_name}</div>
+              <div className="mx-[10px] text-[17px] text-chart-font">{like.company_name}</div>
               <div className="flex justify-center items-center m-[10px]">
-                <div className="m-[10px] text-[19px] ">{like.price}원</div>
+                <div className="m-[10px] text-[17px] ">{like.price}원</div>
                 <div className="m-[10px] cursor-pointer">
                   <IoMdTrash className="w-[23px] h-[23px] text-chart-font" />
                 </div>

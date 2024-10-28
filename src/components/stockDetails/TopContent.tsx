@@ -44,7 +44,7 @@ function TopContent() {
         <div className="text-[19px] text-font-gray m-[10px]">005930</div>
       </div>
       <div className="flex">
-        <div className="flex p-[10px]">
+        {/* <div className="flex p-[10px]">
           <div className="w-[80px] border-l border-font-gray px-[7px] m-[10px]">
             <div className="text-[15px] text-[#808080]">시가총액</div>
             <div className="text-[15px] text-[#808080]">3691억원</div>
@@ -65,7 +65,7 @@ function TopContent() {
             <div className="text-[15px] text-[#808080]">1년 최고</div>
             <div className="text-[15px] text-[#808080]">3691억원</div>
           </div>
-        </div>
+        </div> */}
         <button
           onClick={handleClick}
           id="basic-button"

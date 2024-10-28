@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ApexCharts from 'react-apexcharts';
+import './CandleChart.css';
 
 const data = [
   {
@@ -81,7 +82,87 @@ const data = [
     high: 135.2338,
     close: 134.8993,
     volume: 18,
-  }
+  },
+  {
+    date: '2021-02-02 13:40:00',
+    open: 135.76,
+    low: 135.2338,
+    high: 135.96,
+    close: 135.2338,
+    volume: 15,
+  },
+  {
+    date: '2021-02-02 13:41:00',
+    open: 135.2338,
+    low: 134.94,
+    high: 135.2593,
+    close: 135.0108,
+    volume: 5,
+  },
+  {
+    date: '2021-02-02 13:42:00',
+    open: 135.2338,
+    low: 134.94,
+    high: 135.2593,
+    close: 135.25,
+    volume: 5,
+  },
+  {
+    date: '2021-02-02 13:43:00',
+    open: 135.25,
+    low: 135.14,
+    high: 135.4692,
+    close: 135.4,
+    volume: 7,
+  },
+  {
+    date: '2021-02-02 13:44:00',
+    open: 135.2338,
+    low: 134.8593,
+    high: 135.2338,
+    close: 134.8993,
+    volume: 18,
+  },
+  {
+    date: '2021-02-02 13:45:00',
+    open: 135.76,
+    low: 135.2338,
+    high: 135.96,
+    close: 135.2338,
+    volume: 15,
+  },
+  {
+    date: '2021-02-02 13:46:00',
+    open: 135.2338,
+    low: 134.94,
+    high: 135.2593,
+    close: 135.0108,
+    volume: 5,
+  },
+  {
+    date: '2021-02-02 13:47:00',
+    open: 135.2338,
+    low: 134.94,
+    high: 135.2593,
+    close: 135.25,
+    volume: 5,
+  },
+  {
+    date: '2021-02-02 13:48:00',
+    open: 135.25,
+    low: 135.14,
+    high: 135.4692,
+    close: 135.4,
+    volume: 7,
+  },
+  {
+    date: '2021-02-02 13:49:00',
+    open: 135.2338,
+    low: 134.8593,
+    high: 135.2338,
+    close: 134.8993,
+    volume: 18,
+  },
 ];
 
 const ApexChart: React.FC = () => {
@@ -105,7 +186,7 @@ const ApexChart: React.FC = () => {
   const movingAverageData = data.map((price, index, arr) => {
     const sum = arr.slice(Math.max(0, index - 2), index + 1).reduce((acc, curr) => acc + curr.close, 0);
     const avg = sum / Math.min(index + 1, 3); // 간단한 3일 이동평균
-    return { x: price.date, y: avg };
+    return { x: price.date, y: avg.toFixed(2) };
   });
 
   interface ChartContext {
@@ -127,7 +208,7 @@ const ApexChart: React.FC = () => {
 
   return (
     <div className="w-full h-[74vh] flex flex-col justify-center items-center">
-      <div id="chart-candlestick" className="w-full h-[48vh]">
+      <div id="chart-candlestick" className="w-full h-[50vh]">
         <ApexCharts
           type="candlestick"
           series={[
@@ -136,9 +217,6 @@ const ApexChart: React.FC = () => {
           ]}
           height="100%"
           options={{
-            theme: {
-              mode: 'light',
-            },
             chart: {
               toolbar: {
                 tools: {},
@@ -170,6 +248,9 @@ const ApexChart: React.FC = () => {
               type: 'datetime',
               min: xaxisRange.min,
               max: xaxisRange.max,
+              crosshairs: {
+                show: true,
+              },
               labels: {
                 show: false,
               },
@@ -179,25 +260,30 @@ const ApexChart: React.FC = () => {
               axisTicks: {
                 show: false,
               },
+              tooltip: {
+                enabled: false,
+              },
             },
             yaxis: {
-              show: false,
+              show: true,
               opposite: true,
+              forceNiceScale: true,
+              tooltip: {
+                enabled: true,
+              },
             },
             tooltip: {
-              y: {
-                formatter: (v) => `$ ${v.toFixed(2)}`,
-              },
+              shared: true,
             },
             legend: {
               show: true,
-              position: "top"
-            }
+              position: 'top',
+            },
           }}
         />
       </div>
 
-      <div id="chart-bar" className="w-full h-[26vh]">
+      <div id="chart-bar" className="w-full h-[20vh]">
         <ApexCharts
           type="bar"
           series={[{ name: 'Volume', data: volumeData }]}
@@ -228,6 +314,12 @@ const ApexChart: React.FC = () => {
               show: false,
             },
             xaxis: {
+              crosshairs: {
+                show: true,
+                opacity: 1,
+                position: 'back',
+                stroke: { width: 1, dashArray: 4 },
+              },
               type: 'datetime',
               min: xaxisRange.min,
               max: xaxisRange.max,
@@ -243,12 +335,15 @@ const ApexChart: React.FC = () => {
             },
             yaxis: {
               opposite: true,
-              show: false,
+              show: true,
               min: 0,
+              tooltip: {
+                enabled: true,
+              },
             },
             tooltip: {
-              y: {
-                formatter: (v) => `${v}`,
+              custom: function ({ series, seriesIndex, dataPointIndex }) {
+                return `<div style="padding: 10px; background: white; border-radius: 5px;"> 거래량: ${series[seriesIndex][dataPointIndex]} 주 </div>`;
               },
             },
           }}

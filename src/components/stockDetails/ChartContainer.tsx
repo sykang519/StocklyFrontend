@@ -1,4 +1,7 @@
-import CandleChart from './CandleChart';
+import DayChart from './DayChart';
+import MonthChart from './MonthChart';
+import WeekChart from './WeekChart';
+import YearChart from './YearChart';
 import { useState } from 'react';
 
 
@@ -17,7 +20,6 @@ const ChartContainer: React.FC = () => {
           >
             <option value="1m">1분</option>
             <option value="5m">5분</option>
-            <option value="1h">1시간</option>
           </select>
           <button
             className={`w-[35px] h-[35px] mx-[5px] my-[10px] rounded-[7px] transition-colors duration-300 ease-in-out ${filter === 'day' ? 'bg-gray' : 'bg-transparent'}`}
@@ -47,7 +49,10 @@ const ChartContainer: React.FC = () => {
         <div></div>
       </div>
       <div className="flex-growflex flex-col justify-center items-center w-full h-[93%]">
-        <CandleChart />
+        {filter === "day" && <DayChart />}
+        {filter === "week" && <WeekChart />}
+        {filter === "month" && <MonthChart />}
+        {filter === "year" && <YearChart />}
       </div>
     </div>
   );

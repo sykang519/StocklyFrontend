@@ -224,8 +224,8 @@ const MonthChart = () => {
       },
     ],
     dataZoom: [
-      { type: 'inside', xAxisIndex: [0, 1], start: 98, end: 100 },
-      { show: true, xAxisIndex: [0, 1], type: 'slider', top: '85%', start: 98, end: 100 },
+      { type: 'inside', xAxisIndex: [0, 1], start: 30, end: 100 },
+      { show: true, xAxisIndex: [0, 1], type: 'slider', top: '85%', start: 30, end: 100 },
     ],
     series: [
       {

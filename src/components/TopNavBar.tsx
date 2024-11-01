@@ -29,7 +29,7 @@ interface TopNavBarProps {
 
 function TopNavBar({ color }: TopNavBarProps) {
   const { home, myinvest, handleClick } = useNavBarStore();
-  const { isLoggedin } = useUserStore();
+  const { isLoggedin, setUserState } = useUserStore();
   const navigate = useNavigate();
 
   const [modal, setModal] = React.useState(false);
@@ -51,6 +51,7 @@ function TopNavBar({ color }: TopNavBarProps) {
   const goToSetting = () => {
     navigate('/setting');
   };
+
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -126,7 +127,7 @@ function TopNavBar({ color }: TopNavBarProps) {
                 'aria-labelledby': 'basic-button',
               }}
             >
-              <MenuItem onClick={handleClose}>로그아웃</MenuItem>
+              <MenuItem onClick={()=> {handleClose(); setUserState(false, ""); goToLogin();}}>로그아웃</MenuItem>
               <MenuItem
                 onClick={() => {
                   handleClose();

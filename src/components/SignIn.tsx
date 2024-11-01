@@ -49,7 +49,7 @@ function SignIn() {
           onChange={(e)=>setEmail(e.target.value)}
         ></input>
         <input
-          className="w-[575px] h-[75px] m-[15px] p-[20px] rounded-[7px]"
+          className="w-[575px] h-[75px] m-[15px] p-[20px] rounded-[7px] shadow"
           placeholder="비밀번호"
           type="password"
           required

@@ -2,15 +2,15 @@ import { create } from 'zustand';
 
 interface UserState {
   isLoggedin: boolean;
-  name: string;
+  email: string;
   setUserState:(login: boolean, name: string) => void;
 }
 
 const useUserStore = create<UserState>((set) => ({
   isLoggedin: false,
-  name: '',
+  email: '',
   setUserState: (login: boolean, name: string) => {
-    set({isLoggedin: login, name:name})
+    set({isLoggedin: login, email:name})
   },
 }));
 

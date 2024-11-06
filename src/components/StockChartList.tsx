@@ -12,23 +12,16 @@ interface StockData {
   rate_price: number;
   symbol: string;
   volume: number;
+  trading_value: number;
 }
 
 function StockChart() {
-  // const datas = [
-  //   {
-  //     company_name: '삼성전자',
-  //     price: 60000,
-  //     fluctuation_price: 5300,
-  //     fluctuation_rate: 2.3,
-  //     amount: 10000,
-  //     volume: 1234,
-  //   },
-  // ];
 
   const navigate = useNavigate();
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const totalPages = 10;
+  const gotoDetails = (symbol: string, name: string) => {
+    navigate("/details", { state: { symbol: symbol, name: name } });
+  }
+
   const stockDatas = [
     {
       close: 0,
@@ -38,6 +31,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '005930',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -47,6 +41,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '005935',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -56,6 +51,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '000660',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -65,6 +61,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '373220',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -74,6 +71,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '005380',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -83,6 +81,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '005389',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -92,6 +91,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '005385',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -101,6 +101,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '005387',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -110,6 +111,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '207940',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -119,6 +121,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '000270',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -128,6 +131,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '068270',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -137,6 +141,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '051910',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -146,6 +151,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '005490',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -155,6 +161,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '051915',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -164,6 +171,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '035420',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -173,6 +181,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '006400',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -182,6 +191,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '006405',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -191,6 +201,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '105560',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -200,6 +211,7 @@ function StockChart() {
       rate_price: 0,
       symbol: '028260',
       volume: 0,
+      trading_value: 0,
     },
     {
       close: 0,
@@ -209,75 +221,35 @@ function StockChart() {
       rate_price: 0,
       symbol: '012330',
       volume: 0,
+      trading_value: 0,
     },
   ];
 
   const [datas, setDatas] = useState<StockData[]>(stockDatas);
 
   useEffect(() => {
-    console.log('111');
-    const eventSource = new EventSource(`http://localhost.stock-server/api/v1/stockDetails/stream/multiple?page=1`);
-    
-    eventSource.onmessage = (event) => {
-      console.log('222');
-      const newDataArray = JSON.parse(event.data);
-      console.log(newDataArray);
-  
+    // Web Worker 초기화
+    const dataWorker = new Worker(new URL('./DataWorker.js', import.meta.url));
+    dataWorker.postMessage({ dataUrl: 'http://localhost.stock-server/api/v1/stockDetails/stream/multiple?page=1' });
+
+    // 메인 스레드에서 Web Worker로부터 받은 메시지를 처리
+    dataWorker.onmessage = (event) => {
+      const newDataArray = event.data;
+
+      // 기존 데이터와 비교해 필요한 부분만 업데이트
       setDatas((prevDatas) =>
         prevDatas.map((data) => {
-          const newData = newDataArray.find((item: StockData) => item.id === data.id);
+          const newData = newDataArray.find((item:StockData) => item.id === data.id);
           return newData ? { ...data, ...newData } : data;
         })
       );
     };
-  
-    eventSource.onerror = () => {
-      console.error('SSE connection error');
-      eventSource.close();
-    };
-  
+
+    // 컴포넌트 언마운트 시 Web Worker 종료
     return () => {
-      eventSource.close();
+      dataWorker.terminate();
     };
   }, []);
-
-  // const handlePrevPage = () => {
-  //   if (currentPage > 1) {
-  //     setCurrentPage(currentPage - 1);
-  //   }
-  // };
-
-  // const handleNextPage = () => {
-  //   if (currentPage < totalPages) {
-  //     setCurrentPage(currentPage + 1);
-  //   }
-  // };
-
-  // const handlePageClick = (pageNumber: number) => {
-  //   setCurrentPage(pageNumber);
-  // };
-
-  const gotoStockDetails = () => {
-    navigate('/details');
-  };
-
-  // 페이지네이션 버튼 생성
-  // const renderPageNumbers = () => {
-  //   const pageNumbers = [];
-
-  //   for (let i = 1; i <= 10; i++) {
-  //     pageNumbers.push(
-  //       <button
-  //         key={i}
-  //         className={`px-3 py-1 mx-1 rounded-md w-[35px] h-[35px] flex items-center justify-center ${currentPage === i ? 'text-black bg-Bg-gray' : 'text-chart-font'}`}
-  //         onClick={() => handlePageClick(i)}
-  //       >
-  //         {i}
-  //       </button>,
-  //     );
-  //   }
-  //   return pageNumbers;
-  // };
 
   if (datas.length === 0) {
     return (
@@ -307,7 +279,7 @@ function StockChart() {
           <tr
             key={index}
             className="rounded-[5px] hover:bg-Bg-gray cursor-pointer"
-            onClick={gotoStockDetails}
+            onClick={()=>{gotoDetails(data.symbol, data.name)}}
           >
             <td className="text-left flex py-[10px] text-chart-font px-1 text-[18px]">
               <p className="text-MainBlue mr-10 font-bold text-[19px]">{index + 1}</p> {data.name}
@@ -320,7 +292,7 @@ function StockChart() {
             >
               {data.rate_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원 ({data.rate})%
             </td>
-            <td className="text-right py-[10px] text-chart-font text-[18px]">{data.volume}</td>
+            <td className="text-right py-[10px] text-chart-font text-[18px]">{data.trading_value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</td>
             <td className="text-right py-[10px] text-chart-font px-1 text-[18px]">{data.volume}</td>
           </tr>
         ))}

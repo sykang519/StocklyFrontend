@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-// import { GrFormNext } from 'react-icons/gr';
-// import { GrFormPrevious } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -36,16 +34,6 @@ function StockChart() {
     {
       close: 0,
       id: 2,
-      name: '삼성전자우',
-      rate: 0,
-      rate_price: 0,
-      symbol: '005935',
-      volume: 0,
-      trading_value: 0,
-    },
-    {
-      close: 0,
-      id: 3,
       name: 'SK하이닉스',
       rate: 0,
       rate_price: 0,
@@ -55,7 +43,7 @@ function StockChart() {
     },
     {
       close: 0,
-      id: 4,
+      id: 3,
       name: 'LG엔솔',
       rate: 0,
       rate_price: 0,
@@ -65,7 +53,7 @@ function StockChart() {
     },
     {
       close: 0,
-      id: 5,
+      id: 4,
       name: '현대차',
       rate: 0,
       rate_price: 0,
@@ -75,37 +63,7 @@ function StockChart() {
     },
     {
       close: 0,
-      id: 6,
-      name: '현대차3우B',
-      rate: 0,
-      rate_price: 0,
-      symbol: '005389',
-      volume: 0,
-      trading_value: 0,
-    },
-    {
-      close: 0,
-      id: 7,
-      name: '현대차우',
-      rate: 0,
-      rate_price: 0,
-      symbol: '005385',
-      volume: 0,
-      trading_value: 0,
-    },
-    {
-      close: 0,
-      id: 8,
-      name: '현대차2우B',
-      rate: 0,
-      rate_price: 0,
-      symbol: '005387',
-      volume: 0,
-      trading_value: 0,
-    },
-    {
-      close: 0,
-      id: 9,
+      id: 5,
       name: '삼성바이오로직스',
       rate: 0,
       rate_price: 0,
@@ -115,7 +73,7 @@ function StockChart() {
     },
     {
       close: 0,
-      id: 10,
+      id: 6,
       name: '기아',
       rate: 0,
       rate_price: 0,
@@ -125,7 +83,7 @@ function StockChart() {
     },
     {
       close: 0,
-      id: 11,
+      id: 7,
       name: '셀트리온',
       rate: 0,
       rate_price: 0,
@@ -135,7 +93,7 @@ function StockChart() {
     },
     {
       close: 0,
-      id: 12,
+      id: 8,
       name: 'LG화학',
       rate: 0,
       rate_price: 0,
@@ -145,7 +103,7 @@ function StockChart() {
     },
     {
       close: 0,
-      id: 13,
+      id: 9,
       name: 'POSCO홀딩스',
       rate: 0,
       rate_price: 0,
@@ -155,17 +113,7 @@ function StockChart() {
     },
     {
       close: 0,
-      id: 14,
-      name: 'LG화학우',
-      rate: 0,
-      rate_price: 0,
-      symbol: '051915',
-      volume: 0,
-      trading_value: 0,
-    },
-    {
-      close: 0,
-      id: 15,
+      id: 10,
       name: 'NAVER',
       rate: 0,
       rate_price: 0,
@@ -175,7 +123,7 @@ function StockChart() {
     },
     {
       close: 0,
-      id: 16,
+      id: 11,
       name: '삼성SDI',
       rate: 0,
       rate_price: 0,
@@ -185,17 +133,7 @@ function StockChart() {
     },
     {
       close: 0,
-      id: 17,
-      name: '삼성SDI우',
-      rate: 0,
-      rate_price: 0,
-      symbol: '006405',
-      volume: 0,
-      trading_value: 0,
-    },
-    {
-      close: 0,
-      id: 18,
+      id: 12,
       name: 'KB금융',
       rate: 0,
       rate_price: 0,
@@ -205,7 +143,7 @@ function StockChart() {
     },
     {
       close: 0,
-      id: 19,
+      id: 13,
       name: '삼성물산',
       rate: 0,
       rate_price: 0,
@@ -215,11 +153,71 @@ function StockChart() {
     },
     {
       close: 0,
-      id: 20,
+      id: 14,
       name: '현대모비스',
       rate: 0,
       rate_price: 0,
       symbol: '012330',
+      volume: 0,
+      trading_value: 0,
+    },
+    {
+      close: 0,
+      id: 15,
+      name: '신한지주',
+      rate: 0,
+      rate_price: 0,
+      symbol: '055550',
+      volume: 0,
+      trading_value: 0,
+    },
+    {
+      close: 0,
+      id: 16,
+      name: '카카오',
+      rate: 0,
+      rate_price: 0,
+      symbol: '035720',
+      volume: 0,
+      trading_value: 0,
+    },
+    {
+      close: 0,
+      id: 17,
+      name: '포스코케미칼',
+      rate: 0,
+      rate_price: 0,
+      symbol: '003670',
+      volume: 0,
+      trading_value: 0,
+    },
+    {
+      close: 0,
+      id: 18,
+      name: 'LG전자',
+      rate: 0,
+      rate_price: 0,
+      symbol: '066570',
+      volume: 0,
+      trading_value: 0,
+    },
+    {
+      close: 0,
+      id: 19,
+      name: '하나금융지주',
+      rate: 0,
+      rate_price: 0,
+      symbol: '086790',
+      volume: 0,
+      trading_value: 0,
+    },
+    {
+      close: 0,
+      id: 20,
+      name: '삼성생명',
+      rate: 0,
+      rate_price: 0,
+      symbol: '032830',
       volume: 0,
       trading_value: 0,
     },
@@ -235,6 +233,8 @@ function StockChart() {
     // 메인 스레드에서 Web Worker로부터 받은 메시지를 처리
     dataWorker.onmessage = (event) => {
       const newDataArray = event.data;
+      const time = new Date();
+      console.log("데이터 들어옴", time);
 
       // 기존 데이터와 비교해 필요한 부분만 업데이트
       setDatas((prevDatas) =>

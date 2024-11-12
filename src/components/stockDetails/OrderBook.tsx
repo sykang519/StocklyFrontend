@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 
 interface OrderData {
   id: number;
@@ -36,15 +37,20 @@ interface OrderData {
   [key: string]: number;
 }
 
-function OrderPrice() {
+interface OrderBookProps {
+  symbol: string;
+}
+
+const OrderBook = ({ symbol }: OrderBookProps) => {
   const [askLength, setAskLength] = useState<number[]>([]);
   const [bidLength, setBidLength] = useState<number[]>([]);
   const [datas, setDatas] = useState<OrderData>();
 
   useEffect(() => {
-    console.log(1);
-    const eventSource = new EventSource('http://localhost.order-service/api/v1/invests/orderBook/005930');
+    const eventSource = new EventSource(`http://localhost.order-service/api/v1/invests/orderBook/${symbol}`);
     eventSource.onmessage = (event) => {
+      const time = new Date();
+      console.log("데이터 들어옴", time);
       const newData = JSON.parse(event.data);
       setDatas(newData);
     };
@@ -55,28 +61,30 @@ function OrderPrice() {
     return () => {
       eventSource.close();
     };
-  });
+  },[symbol]);
 
   useEffect(() => {
     const calculateLengths = (data: OrderData): void => {
       // sell_volume과 buy_volume을 추출하여 배열로 구성
       const sellVolumes = [
-        data.sell_volume_0,
-        data.sell_volume_1,
-        data.sell_volume_2,
         data.sell_volume_3,
         data.sell_volume_4,
         data.sell_volume_5,
         data.sell_volume_6,
+        data.sell_volume_7,
+        data.sell_volume_8,
+        data.sell_volume_9,
+        data.sell_volume_10,
       ];
       const buyVolumes = [
-        data.buy_volume_0,
         data.buy_volume_1,
         data.buy_volume_2,
         data.buy_volume_3,
         data.buy_volume_4,
         data.buy_volume_5,
         data.buy_volume_6,
+        data.buy_volume_7,
+        data.buy_volume_8,
       ];
 
       // sell_volume과 buy_volume 중 최대값 찾기
@@ -97,7 +105,12 @@ function OrderPrice() {
   }, [datas]);
 
   if (datas === undefined) {
-    return <div>loading</div>;
+    return (
+      <div className="w-full h-[80vh] flex flex-col justify-center items-center">
+        <CircularProgress size={50} sx={{ color: '#3182F6' }} />
+        <p>Loading...</p>
+      </div>
+    );
   }
 
   return (
@@ -113,24 +126,32 @@ function OrderPrice() {
             </tr>
           </thead>
           <tbody>
-            {Array.from({ length: 7 }).map((_, index) => (
+            {Array.from({ length: 8 }).map((_, index) => (
               <tr key={`ask-${index}`}>
                 <td
                   className="w-[35%] text-right p-[10px] relative text-[12px]"
-                  style={{ background: `linear-gradient(to left, #dcdcff ${askLength[index]}%, transparent 0)` }}
-                >{datas[`sell_volume_${index}`]}</td>
-                <td className="w-[30%] text-center p-[10px] border-x border-[#c1c1c1]">{datas[`sell_price_${index}`]}</td>
+                  style={{ background: `linear-gradient(to left, #bebeff ${askLength[index]}%, transparent 0)` }}
+                >
+                  {datas[`sell_volume_${index+3}`]}
+                </td>
+                <td className="w-[30%] text-center p-[10px] border-x border-[#c1c1c1]">
+                  {datas[`sell_price_${index+3}`].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                </td>
                 <td className="w-[35%] text-center p-[10px]"></td>
               </tr>
             ))}
-            {Array.from({ length: 7 }).map((_, index) => (
+            {Array.from({ length: 8 }).map((_, index) => (
               <tr key={`bid-${index}`}>
                 <td className="w-[35%] text-center p-[10px]"></td>
-                <td className="w-[30%] text-center p-[10px] border-x border-[#c1c1c1]">{datas[`buy_price_${index}`]}</td>
+                <td className="w-[30%] text-center p-[10px] border-x border-[#c1c1c1]">
+                  {datas[`buy_price_${index+1}`].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                </td>
                 <td
                   className="w-[35%] text-left p-[10px] relative text-[12px]"
-                  style={{ background: `linear-gradient(to right, #ffdcdc ${bidLength[index]}%, transparent 0)` }}
-                >{datas[`buy_volume_${index}`]}</td>
+                  style={{ background: `linear-gradient(to right, #ffbdbd ${bidLength[index]}%, transparent 0)` }}
+                >
+                  {datas[`buy_volume_${index+1}`]}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -138,6 +159,6 @@ function OrderPrice() {
       </div>
     </div>
   );
-}
+};
 
-export default OrderPrice;
+export default OrderBook;

@@ -177,14 +177,14 @@ const WeekChart = ({symbol, newStockData} :  WeekChartProps) => {
       },
     ],
     grid: [
-      { left: '0%', right: '8%', height: '60%' },
-      { left: '0%', right: '8%', top: '63%', height: '26%' },
+      { left: '0%', right: '0%', height: '60%' },
+      { left: '0%', right: '0%', top: '63%', height: '26%' },
     ],
     xAxis: [
       {
         type: 'category',
         data: data.categoryData,
-        boundaryGap: false,
+        boundaryGap: true,
         axisLine: { onZero: false },
         splitLine: { show: false },
         min: 'dataMin',
@@ -200,7 +200,7 @@ const WeekChart = ({symbol, newStockData} :  WeekChartProps) => {
         type: 'category',
         gridIndex: 1,
         data: data.categoryData,
-        boundaryGap: false,
+        boundaryGap: true,
         axisLine: { onZero: false },
         axisTick: { show: false },
         splitLine: { show: false },

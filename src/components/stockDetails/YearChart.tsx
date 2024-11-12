@@ -1,5 +1,5 @@
 import Echart from './Echart';
-import { EChartOption } from 'echarts';
+import { EChartOption, ECElementEvent } from 'echarts';
 import { useEffect, useState, useRef } from 'react';
 
 interface StockData {
@@ -53,7 +53,7 @@ const YearChart = ({symbol} : YearChartProps) => {
         // setStockData([...data, dummyData]);
         setStockData(data);
       });
-  }, []);
+  }, [symbol]);
 
   // 실시간 데이터 받아오기
   // useEffect(() => {
@@ -83,7 +83,7 @@ const YearChart = ({symbol} : YearChartProps) => {
   // });
 
   // 줌 상태 관리
-  const onDataZoom = (event) => {
+  const onDataZoom = (event: ECElementEvent) => {
     if (event.batch) {
       const start = event.batch[0].start;
       const end = event.batch[0].end;

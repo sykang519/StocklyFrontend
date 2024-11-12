@@ -1,5 +1,5 @@
 import Echart from './Echart';
-import { EChartOption } from 'echarts';
+import { EChartOption, ECElementEvent } from 'echarts';
 import { useEffect, useState, useRef } from 'react';
 
 interface StockData {
@@ -64,7 +64,7 @@ const OneMinChart = ({symbol} : FiveMinChartProps) => {
     return () => {
       eventSource.close();
     };
-  }, []);
+  }, [symbol]);
 
   useEffect(() => {
     setData(splitData(stockData));
@@ -100,10 +100,10 @@ const OneMinChart = ({symbol} : FiveMinChartProps) => {
     return () => {
       eventSource.close();
     };
-  },[isDataLoaded]);
+  },[isDataLoaded, symbol]);
 
   // 줌 상태 관리
-  const onDataZoom = (event) => {
+  const onDataZoom = (event: ECElementEvent) => {
     if (event.batch) {
       const start = event.batch[0].start;
       const end = event.batch[0].end;

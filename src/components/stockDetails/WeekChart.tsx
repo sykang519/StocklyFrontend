@@ -1,5 +1,5 @@
 import Echart from './Echart';
-import { EChartOption } from 'echarts';
+import { EChartOption, ECElementEvent } from 'echarts';
 import { useEffect, useState, useRef } from 'react';
 
 interface StockData {
@@ -56,11 +56,13 @@ const WeekChart = ({symbol} :  WeekChartProps) => {
           symbol: '',
         };
         setStockData([...data, dummyData]);
+        setIsDataLoaded(true);
       });
-  }, []);
+  }, [symbol]);
 
   // 실시간 데이터 받아오기
   useEffect(() => {
+    if (!isDataLoaded) return;
     const eventSource = new EventSource(`http://localhost.stock-service/api/v1/stockDetails/stream/${symbol}`);
     eventSource.onmessage = (event) => {
       const today = new Date();
@@ -95,10 +97,10 @@ const WeekChart = ({symbol} :  WeekChartProps) => {
     return () => {
       eventSource.close();
     };
-  });
+  }, [isDataLoaded, symbol]);
 
   // 줌 상태 관리
-  const onDataZoom = (event) => {
+  const onDataZoom = (event: ECElementEvent) => {
     if (event.batch) {
       const start = event.batch[0].start;
       const end = event.batch[0].end;

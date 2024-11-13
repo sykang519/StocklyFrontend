@@ -115,17 +115,17 @@ const WeekChart = ({symbol, newStockData} :  WeekChartProps) => {
 
   function calculateMA(dayCount: number, data: SplitData) {
     const result = [];
-    for (let i = 0; i < data.values.length-1; i++) {
+    for (let i = 0; i < data.values.length - 1; i++) {
       if (i < dayCount) {
         result.push('-');
         continue;
       }
 
       let sum = 0;
-      for (let j = 0; j < dayCount-1; j++) {
+      for (let j = 0; j < dayCount; j++) {
         sum += data.values[i - j][1]; // 'close' 값 (index 1)을 사용하여 이동 평균 계산
       }
-      result.push((sum / (dayCount-1)).toFixed(3));
+      result.push((sum / dayCount ).toFixed(3));
     }
     return result;
   }

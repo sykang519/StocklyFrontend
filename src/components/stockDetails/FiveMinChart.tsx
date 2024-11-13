@@ -120,7 +120,7 @@ const OneMinChart = ({ symbol, newStockData }: FiveMinChartProps) => {
       const item = rawData[i];
       categoryData.push(item.date);
       values.push([item.open, item.close, item.low, item.high]);
-      volumes.push([i, item.volume, item.open > item.close ? 1 : -1]);
+      volumes.push([i, Number(item.volume), item.open > item.close ? 1 : -1]);
     }
 
     return {
@@ -140,7 +140,7 @@ const OneMinChart = ({ symbol, newStockData }: FiveMinChartProps) => {
 
       let sum = 0;
       for (let j = 0; j < dayCount; j++) {
-        sum += data.values[i - j][1]; // 'close' 값 (index 1)을 사용하여 이동 평균 계산
+        sum += Number(data.values[i - j][1]); // 'close' 값 (index 1)을 사용하여 이동 평균 계산
       }
       result.push((sum / dayCount).toFixed(3));
     }
@@ -231,8 +231,8 @@ const OneMinChart = ({ symbol, newStockData }: FiveMinChartProps) => {
           showMaxLabel: false,
           inside: true,
         },
-        // min: (value) => value.min - (value.max - value.min) * 0.1,
-        // max: (value) => value.max + (value.max - value.min) * 0.5,
+        min: (value) => value.min - (value.max - value.min) * 0.1,
+        max: (value) => value.max + (value.max - value.min) * 0.1,
       },
       {
         scale: true,

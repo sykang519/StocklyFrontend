@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
+import useMarketStore from '../zustand/MarketStore';
 
 interface StockData {
   close: number;
@@ -224,6 +225,8 @@ function StockChart() {
 
   const [datas, setDatas] = useState<StockData[]>(stockDatas);
 
+  const isMarketOpen = useMarketStore((state) => state.isMarketOpen);
+
   useEffect(() => {
     fetch(`http://localhost.stock-service/api/v1/stockDetails/symbols`, {
       method: 'GET',
@@ -252,6 +255,9 @@ function StockChart() {
   }, []);
 
   useEffect(() => {
+    // 주식 장 닫혀있는 시간이면 SSE 연결 하지 않음
+    if(!isMarketOpen) return;
+
     // Web Worker 초기화
     const dataWorker = new Worker(new URL('./DataWorker.js', import.meta.url));
     dataWorker.postMessage({
@@ -268,7 +274,7 @@ function StockChart() {
     return () => {
       dataWorker.terminate();
     };
-  }, []);
+  });
 
   if (datas.length === 0) {
     return (

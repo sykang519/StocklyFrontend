@@ -96,7 +96,7 @@ const TopContent = ({ symbol, name, stockprice, rate, rate_price }: TopContentPr
         >
           <div className="w-[250px] h-[200px] rounded-[100px]">
             <div className="m-[20px]">
-              삼성전자가
+              {name} (이)가
               <br />
               얼마일 때 알려드릴까요?
             </div>

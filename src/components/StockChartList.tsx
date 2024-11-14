@@ -235,7 +235,6 @@ function StockChart() {
         return res.json();
       })
       .then((fetchedData: StockData[]) => {
-        console.log(fetchedData);
         setDatas((prevDatas) =>
           prevDatas.map((data, index) => ({
             ...data,

@@ -18,7 +18,7 @@ const boxStyles = {
 function StockDetailsPage() {
   const { openDrawer } = useDrawerStore();
   const location = useLocation();
-  const { name } = location.state || {};
+  const { name, initPrice, initRate, initRatePrice } = location.state || {};
   const [newStockData, setNewStockData] = useState<NewStockData>();
   const { symbol } = useParams<{ symbol: string }>();
   const isMarketOpen = useMarketStore((state) => state.isMarketOpen);
@@ -53,9 +53,9 @@ function StockDetailsPage() {
             <TopContent
               symbol={symbol ?? ''}
               name={name}
-              stockprice={newStockData?.close ?? 0}
-              rate={newStockData?.rate ?? 0}
-              rate_price={newStockData?.rate_price ?? 0}
+              stockprice={newStockData?.close ?? initPrice}
+              rate={newStockData?.rate ?? initRate}
+              rate_price={newStockData?.rate_price ?? initRatePrice}
             />
           </div>
           <div className="flex h-[80vh]">

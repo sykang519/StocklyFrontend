@@ -16,17 +16,19 @@ interface StockData {
 
 function StockChart() {
   const navigate = useNavigate();
-  const gotoDetails = (symbol: string, name: string) => {
-    navigate(`/details/${symbol}`, { state: { name: name } });
+  const gotoDetails = (symbol: string, name: string, initPrice: number, initRate: number, initRatePrice: number) => {
+    navigate(`/details/${symbol}`, {
+      state: { name: name, initPrice: initPrice, initRate: initRate, initRatePrice: initRatePrice },
+    });
   };
 
   const stockDatas = [
     {
-      close: 0,
+      close: 100,
       id: 1,
       name: '삼성전자',
-      rate: 0,
-      rate_price: 0,
+      rate: 100,
+      rate_price: 100,
       symbol: '005930',
       volume: 0,
       trading_value: 0,
@@ -256,7 +258,7 @@ function StockChart() {
 
   useEffect(() => {
     // 주식 장 닫혀있는 시간이면 SSE 연결 하지 않음
-    if(!isMarketOpen) return;
+    if (!isMarketOpen) return;
 
     // Web Worker 초기화
     const dataWorker = new Worker(new URL('./DataWorker.js', import.meta.url));
@@ -305,7 +307,7 @@ function StockChart() {
               key={index}
               className="rounded-[5px] hover:bg-Bg-gray cursor-pointer"
               onClick={() => {
-                gotoDetails(data.symbol, data.name);
+                gotoDetails(data.symbol, data.name, data.close, data.rate, data.rate_price);
               }}
             >
               <td className="text-left flex py-[10px] text-chart-font px-1 text-[18px]">

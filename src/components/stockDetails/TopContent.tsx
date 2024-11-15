@@ -13,6 +13,7 @@ interface TopContentProps {
   stockprice: number;
   rate: number;
   rate_price: number;
+
 }
 
 const TopContent = ({ symbol, name, stockprice, rate, rate_price }: TopContentProps) => {
@@ -21,6 +22,7 @@ const TopContent = ({ symbol, name, stockprice, rate, rate_price }: TopContentPr
   const [price, setPrice] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const [isLike, setIsLike] = useState(false);
+
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);

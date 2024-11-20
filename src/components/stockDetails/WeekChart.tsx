@@ -1,6 +1,7 @@
 import Echart from './Echart';
 import { EChartOption, ECElementEvent } from 'echarts';
 import { useEffect, useState, useRef } from 'react';
+import { NewStockData } from "../../types/NewStockData";
 
 interface StockData {
   start_date: string;
@@ -23,10 +24,11 @@ interface SplitData {
 
 interface WeekChartProps {
   symbol: string;
+  newStockData: NewStockData;
 }
 
 
-const WeekChart = ({symbol} :  WeekChartProps) => {
+const WeekChart = ({symbol, newStockData} :  WeekChartProps) => {
   const [stockData, setStockData] = useState<StockData[]>([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const zoomRange = useRef({ start: 99, end: 100 }); // 줌 상태 저장
@@ -63,41 +65,20 @@ const WeekChart = ({symbol} :  WeekChartProps) => {
   // 실시간 데이터 받아오기
   useEffect(() => {
     if (!isDataLoaded) return;
-    const eventSource = new EventSource(`http://localhost.stock-service/api/v1/stockDetails/stream/${symbol}`);
-    eventSource.onmessage = (event) => {
-      const today = new Date();
-      const newData = {
-        ...JSON.parse(event.data),
-        end_date: `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`,
-      };
-
-      const modifiedData = {
-        ...newData,
-        end_date: newData.date,
-      };
-      delete modifiedData.date;
-
       setStockData((prevStockData) => {
         const updatedStockData = [...prevStockData];
 
         if (updatedStockData.length > 0) {
           updatedStockData[updatedStockData.length - 1] = {
             ...updatedStockData[updatedStockData.length - 1],
-            ...modifiedData, // 새로운 데이터로 수정
+            ...newStockData, // 새로운 데이터로 수정
           };
         }
 
         return updatedStockData; // 수정된 배열 반환
       });
-    };
-    eventSource.onerror = () => {
-      console.error('SSE connection error');
-      eventSource.close();
-    };
-    return () => {
-      eventSource.close();
-    };
-  }, [isDataLoaded, symbol]);
+
+  }, [isDataLoaded, symbol, newStockData]);
 
   // 줌 상태 관리
   const onDataZoom = (event: ECElementEvent) => {
@@ -134,17 +115,17 @@ const WeekChart = ({symbol} :  WeekChartProps) => {
 
   function calculateMA(dayCount: number, data: SplitData) {
     const result = [];
-    for (let i = 0; i < data.values.length-1; i++) {
+    for (let i = 0; i < data.values.length - 1; i++) {
       if (i < dayCount) {
         result.push('-');
         continue;
       }
 
       let sum = 0;
-      for (let j = 0; j < dayCount-1; j++) {
+      for (let j = 0; j < dayCount; j++) {
         sum += data.values[i - j][1]; // 'close' 값 (index 1)을 사용하여 이동 평균 계산
       }
-      result.push((sum / (dayCount-1)).toFixed(3));
+      result.push((sum / dayCount ).toFixed(3));
     }
     return result;
   }
@@ -196,14 +177,14 @@ const WeekChart = ({symbol} :  WeekChartProps) => {
       },
     ],
     grid: [
-      { left: '0%', right: '8%', height: '60%' },
-      { left: '0%', right: '8%', top: '63%', height: '26%' },
+      { left: '0%', right: '0%', height: '60%' },
+      { left: '0%', right: '0%', top: '63%', height: '26%' },
     ],
     xAxis: [
       {
         type: 'category',
         data: data.categoryData,
-        boundaryGap: false,
+        boundaryGap: true,
         axisLine: { onZero: false },
         splitLine: { show: false },
         min: 'dataMin',
@@ -219,7 +200,7 @@ const WeekChart = ({symbol} :  WeekChartProps) => {
         type: 'category',
         gridIndex: 1,
         data: data.categoryData,
-        boundaryGap: false,
+        boundaryGap: true,
         axisLine: { onZero: false },
         axisTick: { show: false },
         splitLine: { show: false },

@@ -1,6 +1,7 @@
 import Echart from './Echart';
 import { EChartOption, ECElementEvent } from 'echarts';
 import { useEffect, useState, useRef } from 'react';
+import { NewStockData } from "../../types/NewStockData";
 
 interface StockData {
   date: string;
@@ -20,11 +21,13 @@ interface SplitData {
   volumes: [number, number, number][];
 }
 
+
 interface OneMinChartProps {
   symbol: string;
+  newStockData: NewStockData;
 }
 
-const OneMinChart = ({symbol} : OneMinChartProps) => {
+const OneMinChart = ({symbol, newStockData} : OneMinChartProps) => {
   const [stockData, setStockData] = useState<StockData[]>([]);
   const [data, setData] = useState<SplitData>();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
@@ -33,7 +36,7 @@ const OneMinChart = ({symbol} : OneMinChartProps) => {
   // 과거 데이터 및 1분마다 들어오는 데이터
   useEffect(() => {
     const eventSource = new EventSource(
-      `http://localhost.stock-service/api/v1/stockDetails/streamFilter?symbol=${symbol}&interval=1m`,
+      `http://localhost.stock-service/api/v1/stockDetails/sse/streamFilter?symbol=${symbol}&interval=1m`,
     );
     eventSource.onmessage = (event) => {
       setIsDataLoaded(false);
@@ -73,34 +76,24 @@ const OneMinChart = ({symbol} : OneMinChartProps) => {
 
   // 초단위로 실시간 데이터
   useEffect(() => {
-    if (!isDataLoaded) return;
-    const eventSource = new EventSource(`http://localhost.stock-service/api/v1/stockDetails/stream/${symbol}`);
-    eventSource.onmessage = (event) => {
-      const newData = JSON.parse(event.data);
-      const formattedDate = `${newData.date.slice(0, 2)}:${newData.date.slice(2, 4)}:${newData.date.slice(4, 6)}`;
+    if (!isDataLoaded || !newStockData || !newStockData.date) return;
 
+      const formattedDate = `${newStockData.date.split(" ")[1].slice(0, 8)}`;
       setStockData((prevStockData) => {
         const updatedStockData = [...prevStockData];
 
         if (updatedStockData.length > 0) {
           updatedStockData[updatedStockData.length - 1] = {
             ...updatedStockData[updatedStockData.length - 1],
+            ...newStockData,
             date: formattedDate,
-            ...newData, // 새로운 데이터로 수정
           };
         }
 
         return updatedStockData; // 수정된 배열 반환
       });
-    };
-    eventSource.onerror = () => {
-      console.error('SSE connection error');
-      eventSource.close();
-    };
-    return () => {
-      eventSource.close();
-    };
-  },[isDataLoaded, symbol]);
+
+  },[isDataLoaded, symbol, newStockData]);
 
   // 줌 상태 관리
   const onDataZoom = (event: ECElementEvent) => {
@@ -132,7 +125,7 @@ const OneMinChart = ({symbol} : OneMinChartProps) => {
       const item = rawData[i];
       categoryData.push(item.date);
       values.push([item.open, item.close, item.low, item.high]);
-      volumes.push([i, item.volume, item.open > item.close ? 1 : -1]);
+      volumes.push([i, Number(item.volume), item.open > item.close ? 1 : -1]);
     }
 
     return {
@@ -144,15 +137,15 @@ const OneMinChart = ({symbol} : OneMinChartProps) => {
 
   function calculateMA(dayCount: number, data: SplitData) {
     const result = [];
-    for (let i = 0; i < data.values.length; i++) {
+    for (let i = 0; i < data.values.length - 1; i++) {
       if (i < dayCount) {
         result.push('-');
         continue;
       }
 
       let sum = 0;
-      for (let j = 0; j < dayCount; j++) {
-        sum += data.values[i - j][1]; // 'close' 값 (index 1)을 사용하여 이동 평균 계산
+      for (let j = 0; j < dayCount ; j++) {
+        sum += Number(data.values[i - j][1]); // 'close' 값 (index 1)을 사용하여 이동 평균 계산
       }
       result.push((sum / dayCount).toFixed(3));
     }
@@ -201,14 +194,14 @@ const OneMinChart = ({symbol} : OneMinChartProps) => {
       },
     ],
     grid: [
-      { left: '0%', right: '8%', height: '60%' },
-      { left: '0%', right: '8%', top: '63%', height: '26%' },
+      { left: '0%', right: '0%', height: '60%' },
+      { left: '0%', right: '0%', top: '63%', height: '26%' },
     ],
     xAxis: [
       {
         type: 'category',
         data: data.categoryData,
-        boundaryGap: false,
+        boundaryGap: true,
         axisLine: { onZero: false },
         splitLine: { show: false },
         min: 'dataMin',
@@ -224,7 +217,7 @@ const OneMinChart = ({symbol} : OneMinChartProps) => {
         type: 'category',
         gridIndex: 1,
         data: data.categoryData,
-        boundaryGap: false,
+        boundaryGap: true,
         axisLine: { onZero: false },
         axisTick: { show: false },
         splitLine: { show: false },
@@ -243,8 +236,8 @@ const OneMinChart = ({symbol} : OneMinChartProps) => {
           showMaxLabel: false,
           inside: true,
         },
-        // min: (value) => value.min - (value.max - value.min) * 0.1,
-        // max: (value) => value.max + (value.max - value.min) * 0.5, 
+        min: (value) => value.min - (value.max - value.min) * 0.1,
+        max: (value) => value.max + (value.max - value.min) * 0.1, 
       },
       {
         scale: true,

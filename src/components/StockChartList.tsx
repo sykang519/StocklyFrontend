@@ -295,21 +295,31 @@ function StockChart() {
       })
       .then((fetchedData: StockData[]) => {
         setDatas((prevDatas) =>
-          prevDatas.map((data, index) => ({
-            ...data,
-            close: fetchedData[index]?.close,
-            rate: fetchedData[index]?.rate,
-            rate_price: fetchedData[index]?.rate_price,
-            volume: fetchedData[index]?.volume,
-            trading_value: fetchedData[index]?.trading_value,
-          })),
+          prevDatas.map((data) => {
+            // 서버에서 받은 데이터 중, symbol이 같은 항목 찾기
+            const updatedData = fetchedData.find(
+              (item) => item.symbol === data.symbol
+            );
+  
+            // 같은 symbol을 가진 데이터가 있으면 업데이트, 없으면 기존 데이터 유지
+            return updatedData
+              ? {
+                  ...data,
+                  close: updatedData.close,
+                  rate: updatedData.rate,
+                  rate_price: updatedData.rate_price,
+                  volume: updatedData.volume,
+                  trading_value: updatedData.trading_value,
+                }
+              : data;
+          })
         );
       })
       .catch((error) => {
         console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
       });
   }, []);
-
+  
   useEffect(() => {
     // 주식 장 닫혀있는 시간이면 SSE 연결 하지 않음
     if (!isMarketOpen) return;

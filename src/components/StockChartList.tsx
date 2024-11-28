@@ -73,8 +73,7 @@ function StockChart() {
       volume: 0,
       trading_value: 0,
     },
-
-  ]
+  ];
 
   // const stockDatas = [
   //   {
@@ -297,10 +296,8 @@ function StockChart() {
         setDatas((prevDatas) =>
           prevDatas.map((data) => {
             // 서버에서 받은 데이터 중, symbol이 같은 항목 찾기
-            const updatedData = fetchedData.find(
-              (item) => item.symbol === data.symbol
-            );
-  
+            const updatedData = fetchedData.find((item) => item.symbol === data.symbol);
+
             // 같은 symbol을 가진 데이터가 있으면 업데이트, 없으면 기존 데이터 유지
             return updatedData
               ? {
@@ -312,14 +309,14 @@ function StockChart() {
                   trading_value: updatedData.trading_value,
                 }
               : data;
-          })
+          }),
         );
       })
       .catch((error) => {
         console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
       });
   }, []);
-  
+
   useEffect(() => {
     // 주식 장 닫혀있는 시간이면 SSE 연결 하지 않음
     if (!isMarketOpen) return;
@@ -332,8 +329,23 @@ function StockChart() {
 
     // 메인 스레드에서 Web Worker로부터 받은 메시지를 처리
     dataWorker.onmessage = (event) => {
-      const newDataArray = event.data;
-      setDatas(newDataArray);
+
+      const newData = event.data[0];
+
+      setDatas((prevDatas) =>
+        prevDatas.map((data) =>
+          data.symbol === newData.symbol
+            ? {
+                ...data,
+                close: newData.close,
+                rate: newData.rate,
+                rate_price: newData.rate_price,
+                volume: newData.volume,
+                trading_value: newData.trading_value,
+              }
+            : data,
+        ),
+      );
     };
 
     // 컴포넌트 언마운트 시 Web Worker 종료

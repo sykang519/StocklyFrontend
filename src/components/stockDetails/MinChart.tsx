@@ -22,42 +22,40 @@ interface SplitData {
 }
 
 
-interface OneMinChartProps {
+interface MinChartProps {
   symbol: string;
   newStockData: NewStockData;
+  filter: number;
 }
 
-const OneMinChart = ({symbol, newStockData} : OneMinChartProps) => {
-  const [stockData, setStockData] = useState<StockData[]>([]);
+const dummyData = {
+  date: "",
+  open: 0, 
+  low: 0,
+  high: 0,
+  close: 0,
+  volume: 0,
+  rate: 0,
+  rate_price: 0,
+  symbol: ""
+}
+
+const MinChart = ({symbol, newStockData, filter} : MinChartProps) => {
+  const [stockData, setStockData] = useState<StockData[]>([dummyData]);
   const [data, setData] = useState<SplitData>();
-  const [isDataLoaded, setIsDataLoaded] = useState(false);
   const zoomRange = useRef({ start: 80, end: 100 }); // 줌 상태 저장
 
   // 과거 데이터 및 1분마다 들어오는 데이터
   useEffect(() => {
     const eventSource = new EventSource(
-      `http://localhost.stock-service/api/v1/stockDetails/sse/streamFilter?symbol=${symbol}&interval=1m`,
+      `http://localhost.stock-service/api/v1/stockDetails/sse/streamFilter?symbol=${symbol}&interval=${filter}m`,
     );
     eventSource.onmessage = (event) => {
-      setIsDataLoaded(false);
       const newData = JSON.parse(event.data);
-      const dummyData = {
-        date: "",
-        open: 0, 
-        low: 0,
-        high: 0,
-        close: 0,
-        volume: 0,
-        rate: 0,
-        rate_price: 0,
-        symbol: ""
-      }
       if (newData.length === 1) {
         setStockData((prev) => [...prev.slice(0,-1), newData[0], dummyData]);
-        setIsDataLoaded(true);
       } else {
         setStockData([...newData, dummyData]);
-        setIsDataLoaded(true);
       }
     };
     eventSource.onerror = () => {
@@ -71,29 +69,30 @@ const OneMinChart = ({symbol, newStockData} : OneMinChartProps) => {
 
   useEffect(() => {
     setData(splitData(stockData));
+
   }, [stockData]);
 
 
   // 초단위로 실시간 데이터
   useEffect(() => {
-    if (!isDataLoaded) return;
 
-      //const formattedDate = `${newStockData.date.split(" ")[1].slice(0, 8)}`;
       setStockData((prevStockData) => {
-        const updatedStockData = [...prevStockData];
+        var updatedStockData = [...prevStockData];
 
         if (updatedStockData.length > 0) {
           updatedStockData[updatedStockData.length - 1] = {
             ...updatedStockData[updatedStockData.length - 1],
             ...newStockData,
-            //date: formattedDate,
+            date:"",
+            open:updatedStockData[updatedStockData.length - 1].close,
+            low: updatedStockData[updatedStockData.length - 1].rate_price > 0 ? updatedStockData[updatedStockData.length - 1].open : updatedStockData[updatedStockData.length - 1].close,
+            high: updatedStockData[updatedStockData.length - 1].rate_price > 0 ? updatedStockData[updatedStockData.length - 1].close : updatedStockData[updatedStockData.length - 1].open
           };
-        }
-
+        } 
         return updatedStockData; // 수정된 배열 반환
       });
 
-  },[isDataLoaded, symbol, newStockData]);
+  },[symbol, newStockData]);
 
   // 줌 상태 관리
   const onDataZoom = (event: ECElementEvent) => {
@@ -208,7 +207,7 @@ const OneMinChart = ({symbol, newStockData} : OneMinChartProps) => {
         max: 'dataMax',
         axisLabel: {
           formatter: function (value: string) {
-            const time = value.slice(0, 5);
+            const time = value.slice(11, 16);
             return time;
           },
         },
@@ -272,4 +271,4 @@ const OneMinChart = ({symbol, newStockData} : OneMinChartProps) => {
 
   return <Echart chartOption={ChartOption} onEvents={onEvents}/>;
 };
-export default OneMinChart;
+export default MinChart;

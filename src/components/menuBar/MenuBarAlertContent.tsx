@@ -1,6 +1,7 @@
 import { IoMdTrash } from 'react-icons/io';
 import { useState } from 'react';
 import Delete from '../../assets/icons/cancel.svg';
+import useUserStore from '../../zustand/UserStore';
 
 const alert_list = [
   { company_name: '삼성전자111', price: 5000 },
@@ -15,6 +16,18 @@ const message_list = [
 ];
 
 function MenuBarLikeContent() {
+  const { isLoggedin } = useUserStore();
+
+  if (!isLoggedin) {
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <span className="text-[15px] text-[#757575]">
+          로그인 후 이용할 수 있습니다.
+        </span>
+      </div>
+    );
+  }
+  
   const [content, setContent] = useState('list');
 
   const handleClickList = () => {

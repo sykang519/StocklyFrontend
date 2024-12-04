@@ -23,7 +23,7 @@ const TopContent = ({ symbol, name, stockprice, rate, rate_price }: TopContentPr
   const [price, setPrice] = useState(''); // 사용자가 알림 받기 입력한 값 
   const [isDisabled, setIsDisabled] = useState(true); // 알림 받기 버튼 활성/비활성
   const [isLike, setIsLike] = useState(false); // 좋아요 유무
-  const {alert_flag, message_flag, setAlertState} = AlertStore();
+  const {flag, setFlagState} = AlertStore();
 
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -53,21 +53,27 @@ const TopContent = ({ symbol, name, stockprice, rate, rate_price }: TopContentPr
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
-      body: JSON.stringify({symbol, price: Number(price)})
+      body: JSON.stringify({ symbol, price: Number(price) }),
     })
-    .then((res) => {
-      if (!res.ok){
-        console.log("네트워크 응답이 올바르지 않습니다.");
-      }
-      return res.json();
-    })
-    .then((data)=>{
-      console.log(data);
-      alert('알림받기를 신청하였습니다.');
-      setAlertState(!alert_flag, message_flag)
-      handleClose();
-    })
-  }
+      .then((res) => {
+        if (!res.ok) {
+          console.log('네트워크 응답이 올바르지 않습니다.');
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        alert('알림받기를 신청하였습니다.');
+        setFlagState(!flag);
+        handleClose();
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('알림받기 신청 중 문제가 발생했습니다.');
+      });
+  };
+  
 
   return (
     <div className="flex justify-between w-full">

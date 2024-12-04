@@ -15,7 +15,7 @@ function MenuBarAlertContent() {
 
   const [messageList, setMessageList] = useState<Message[]>([]);
 
-  const {alert_flag, message_flag, setAlertState} = AlertStore(); // 알림목록에 변경사항 있으면 바뀌는 변수(useEffect 의존)
+  const {flag, setFlagState} = AlertStore(); // 알림목록에 변경사항 있으면 바뀌는 변수(useEffect 의존)
 
   const handleDelete = (notification_id: number) => {
     fetch(`http://localhost:30080/api/v1/alert/messages/${notification_id}`, {
@@ -32,7 +32,7 @@ function MenuBarAlertContent() {
       })
       .then((data) => {
         console.log(data);
-        setAlertState(alert_flag, !message_flag);
+        setFlagState(!flag);
       })
       .catch((error) => {
         console.error('Fetch 에러:', error); // 에러 처리
@@ -58,7 +58,7 @@ function MenuBarAlertContent() {
       .catch((error) => {
         console.error('Fetch 에러:', error); // 에러 처리
       });
-  }, [message_flag]);
+  }, [flag]);
 
   return (
     <div className="mt-[75px]">

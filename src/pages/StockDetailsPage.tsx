@@ -27,7 +27,7 @@ function StockDetailsPage() {
     // 주식 장 닫혀있는 시간이면 SSE 연결 하지 않음
     if (!isMarketOpen) return;
 
-    const eventSource = new EventSource(`http://localhost.stock-service/api/v1/stockDetails/sse/stream/${symbol}`);
+    const eventSource = new EventSource(`http://localhost:30081/api/v1/stockDetails/sse/stream/${symbol}`);
     eventSource.onmessage = (event) => {
       const newData = JSON.parse(event.data);
       setNewStockData(newData);
@@ -44,7 +44,7 @@ function StockDetailsPage() {
   return (
     <>
       <div
-        className={`w-full h-[100vh] bg-Bg-gray transition-all duration-300 ${openDrawer ? 'mr-[325px]' : 'mr-[65px]'}`}
+        className={`w-full h-[100vh] bg-Bg-gray transition-all duration-300 ${openDrawer ? 'mr-[335px]' : 'mr-[65px]'}`}
       >
         <TopNavBar color={'gray'} />
         <div className="w-full h-[30px]"></div>
@@ -68,7 +68,7 @@ function StockDetailsPage() {
             </div>
             <div className="w-[20%] h-[80vh]" style={boxStyles}>
               <div className="text-[20px] font-bold p-[15px]">주문하기</div>
-              <Order stockprice={newStockData?.close ?? 0} />
+              <Order symbol={symbol ?? ''} stockprice={newStockData?.close ?? 0} />
             </div>
           </div>
         </div>

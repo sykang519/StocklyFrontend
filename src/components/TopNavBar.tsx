@@ -29,7 +29,7 @@ interface TopNavBarProps {
 
 function TopNavBar({ color }: TopNavBarProps) {
   // navigation바 상태
-  const { home, myinvest, handleClick } = useNavBarStore();
+  const { home, mypage, handleClick } = useNavBarStore();
 
   // zustand에서 사용자 정보 불러오기
   const { isLoggedin, name, setUserState } = useUserStore();
@@ -43,19 +43,16 @@ function TopNavBar({ color }: TopNavBarProps) {
   const handleModalClose = () => setModal(false);
 
   const goToHome = () => {
-    navigate('/main');
+    navigate('/');
     handleClick('home');
   };
-  const goToMyInvest = () => {
-    navigate('/myinvest');
+
+  const goToOnboarding = () => {
+    navigate('/onboarding');
   };
 
-  const goToLogin = () => {
-    navigate('/login');
-  };
-
-  const goToSetting = () => {
-    navigate('/setting');
+  const goToMypage = () => {
+    navigate('/mypage');
   };
 
   const handleLogOut = () => {
@@ -75,6 +72,8 @@ function TopNavBar({ color }: TopNavBarProps) {
         console.log('로그아웃 데이터', data);
         clearUserStorage();
         setUserState(false, '', '');
+        handleClick('home');
+
         alert('로그아웃 되었습니다.');
       })
       .catch((error) => {
@@ -110,13 +109,13 @@ function TopNavBar({ color }: TopNavBarProps) {
           </div>
 
           <div
-            className={`text-[17px] mx-[20px] cursor-pointer ${myinvest ? 'text-[#000000]' : 'text-[#B4BDC6]'}`}
+            className={`text-[17px] mx-[20px] cursor-pointer ${mypage ? 'text-[#000000]' : 'text-[#B4BDC6]'}`}
             onClick={() => {
-              handleClick('myinvest');
-              goToMyInvest();
+              handleClick('mypage');
+              goToMypage();
             }}
           >
-            내 투자
+            마이페이지
           </div>
           <div
             className="m-[10px] bg-Box-gray w-[230px] h-[40px] rounded-[30px] p-[15px] cursor-pointer flex items-center text-[#9e9ea2]"
@@ -160,14 +159,6 @@ function TopNavBar({ color }: TopNavBarProps) {
               <MenuItem
                 onClick={() => {
                   handleClose();
-                  goToSetting();
-                }}
-              >
-                설정
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  handleClose();
                   handleLogOut();
                 }}
               >
@@ -178,7 +169,7 @@ function TopNavBar({ color }: TopNavBarProps) {
         ) : (
           <button
             className="bg-MainBlue w-[90px] h-[40px] text-white rounded-[5px] m-[20px] hover:bg-[#1063d8]"
-            onClick={goToLogin}
+            onClick={goToOnboarding}
           >
             로그인
           </button>
